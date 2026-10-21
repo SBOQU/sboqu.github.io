@@ -1,0 +1,711 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sora:wght@200;300;400;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'Projects/Projet_Simulateur/Results/Extra_Results.css' | url }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="cursor-dot"  id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="bg-grid">
+  <canvas id="bgCanvas"></canvas>
+</div>
+
+<!-- ================================================================
+     INTRO
+     ================================================================ -->
+<section class="result-section" id="intro">
+  <div class="intro-block">
+    <p class="rs-label">// Approach</p>
+    <div class="intro-body">
+      <p>
+        The 12 simulations are split into three levels of increasing difficulty.
+        From one test to the next, only one element changes (the control law, the state
+        observer or the tyre model) and every other parameter is kept identical, so any
+        difference in performance comes from that single change.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ================================================================
+     LEVEL 1 — COMMAND STRATEGIES
+     ================================================================ -->
+<section class="result-section" id="niveau-1">
+
+  <p class="rs-label">// 01 · Level 1</p>
+  <h2 class="rs-title">Command Strategies</h2>
+  <p class="rs-sub">4 Tests · QuartAdams Trajectory · Linear tyre · Rear axle ON · No Observer · Progress Reference : Test 1.1</p>
+
+  <!-- ── 1.1 — PD ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">PD Commande</h3>
+        <span class="rc-test-id">Test 1.1</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.1_Traj.svg' | url }}" alt="Trajectoire test 1.1">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.1_Lat_Err.svg' | url }}" alt="Lat Err test 1.1">
+        </div>
+        <div class="rc-graph rc-graph--optional">
+          <div class="rc-graph-label label-pink">Angle braquage (rad)</div>
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.4058 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.5 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">−</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The PD is purely reactive: it corrects the robot only once an error has appeared, and it has no information on the upcoming curvature.
+      This delay explains the large lateral error in the curves.
+    </div>
+  </article>
+
+  <!-- ── 1.2 — Backstepping ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Exact Linearization via Backstepping</h3>
+        <span class="rc-test-id">Test 1.2</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.2_Traj.svg' | url }}" alt="Trajectoire test 1.2">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.2_Lat_Err.svg' | url }}" alt="Lat Err test 1.2">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.3726 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.9645 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">+8%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      Backstepping linearizes the kinematic model exactly: a change of coordinates cancels its non-linearities.
+      Unlike the PD, the controller uses the current curvature and applies the matching steering angle without waiting for an error to appear.
+      The steady-state lateral error in the curve drops clearly. The maximum error, however, is higher than with the PD (0,96 m against 0,50 m), because the transient at the curve entry is still corrected after the fact instead of being anticipated.
+    </div>
+  </article>
+
+  <!-- ── 1.3 — Backstepping + Feedforward ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Backstepping and FeedForward</h3>
+        <span class="rc-test-id">Test 1.3</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.3_Traj.svg' | url }}" alt="Trajectoire test 1.3">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.3_Lat_Err.svg' | url }}" alt="Lat Err test 1.3">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.8605 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">3.160 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">+112%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The feedforward term relies on a prediction loop that uses the slip angles β_F and β_R to simulate the future trajectory of the vehicle.
+      Without an observer, both are set to zero: the controller predicts a vehicle that does not drift and applies early, wrong steering corrections.
+      This is not a flaw of the method but a dependency, since the feedforward only works with accurate slip angle estimates.
+      This missing piece is added in Test 1.4.
+    </div>
+  </article>
+
+  <!-- ── 1.4 — GPC ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Generalized Predicted Control</h3>
+        <span class="rc-test-id">Test 1.4</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.4_Traj.svg' | url }}" alt="Trajectoire test 1.4">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/1.4_Lat_Err.svg' | url }}" alt="Lat Err test 1.4">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.0977 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.50 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">+76%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The GPC adds a model of the first-order dynamics of the steering actuator on top of the backstepping and feedforward.
+      Instead of a single instantaneous command, it computes an optimal sequence over a prediction horizon that brings the real steering angle to its desired future value, which compensates for the actuator lag.
+      Curve entries and exits are cleaner, and the phase error left by the feedforward alone disappears. It is the most accurate of the four controllers.
+    </div>
+  </article>
+
+</section>
+
+<hr class="neon-divider">
+
+<!-- ================================================================
+     LEVEL 2 — OBSERVERS
+     ================================================================ -->
+<section class="result-section" id="niveau-2">
+
+  <p class="rs-label">// 02 · Level 2</p>
+  <h2 class="rs-title">Observer</h2>
+  <p class="rs-sub">5 Tests · QuartAdams Trajectory · GPC · Progress Reference : Test 1.4</p>
+
+  <!-- ── 2.1 — Rear Axle Off ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Rear Axle Off</h3>
+        <span class="rc-test-id">Test 2.1</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.1_Traj.svg' | url }}" alt="Trajectoire test 2.1">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.1_Lat_Err.svg' | url }}" alt="Lat Err test 2.1">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.1174 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.5 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">−20%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      With the rear axle disabled, the front axle has to correct both the lateral error and the heading error.
+      The coupling between the two errors is no longer damped, and the controller has to work harder to stay on the path.
+      At 2 m/s on a smooth circular path, the effect stays moderate (RMSE 20% higher than Test 1.4): the QuartAdams trajectory does not create transients strong enough to show the limit.
+      The real cost of losing the rear axle appears in Level 3, where sharp heading changes push the front axle alone to its limits.
+    </div>
+  </article>
+
+  <!-- ── 2.2 — Pacejka, no observer ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Pacejka</h3>
+        <span class="rc-test-id">Test 2.2</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.2_Traj.svg' | url }}" alt="Trajectoire test 2.2">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.2_Lat_Err.svg' | url }}" alt="Lat Err test 2.2">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.2975 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.5103 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-204%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      With the Pacejka tyre model and no observer, the vehicle stays stable but oscillates around the reference trajectory, on the path plot as well as on the error signal.
+      The controller assumes zero slip angles, while the non-linear tyre forces create real and significant β_F and β_R.
+      This unmodelled drift creates a constant mismatch between the assumed and the real dynamics, and the GPC cannot correct an effect it does not see.
+      The path is still followed overall, but the RMSE is three times higher than with the linear tyre (Test 1.4). This is the gap the observers are meant to close.
+    </div>
+  </article>
+
+  <!-- ── 2.3 — Kinematic Inversion ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Kinematic Inversion</h3>
+        <span class="rc-test-id">Test 2.3</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.3_Traj.svg' | url }}" alt="Trajectoire test 2.3">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.3_Lat_Err.svg' | url }}" alt="Lat Err test 2.3">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.3_F_Delta.svg' | url }}" alt="F_Delta test 2.3">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.1106 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.50 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-13%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The kinematic inversion observer recovers most of the loss caused by the Pacejka model: the RMSE drops clearly compared with Test 2.2, which shows that the slip angle estimates are meaningful and correctly used by the controller.
+      The steering angle plot, however, shows a serious problem: the front axle command oscillates at high frequency and keeps hitting its mechanical limits.
+      On a real vehicle, this chattering would quickly wear the hydraulic actuator and the steering linkage, and would likely trigger a safety stop.
+      The observer is accurate for tracking, but its estimates are too noisy for the actuator.
+    </div>
+  </article>
+
+  <!-- ── 2.4 — Luenberger ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Luenberger</h3>
+        <span class="rc-test-id">Test 2.4</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.4_Traj.svg' | url }}" alt="Trajectoire test 2.4">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.4_Lat_Err.svg' | url }}" alt="Lat Err test 2.4">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.4_F_Delta.svg' | url }}" alt="F_Delta test 2.4">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.1422 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.50 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-45%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The Luenberger observer gives up some accuracy to get a smooth estimate.
+      Unlike the kinematic inversion, it corrects its slip angle estimates gradually through a parallel simulation loop, which filters out the high-frequency noise behind the chattering of Test 2.3.
+      The steering command is now clean and mechanically acceptable. The filtering adds a small delay: in the curve, the estimated β lags slightly behind the real slip angle and leaves a small residual error.
+      The RMSE is a little higher than in Test 2.3, but the actuator behaviour is far more realistic. This is the usual trade-off between accuracy and smoothness in observer design.
+    </div>
+  </article>
+
+  <!-- ── 2.5 — Lyapunov ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">Lyapunov-based Adaptive Observer</h3>
+        <span class="rc-test-id">Test 2.5</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.5_Traj.svg' | url }}" alt="Trajectoire test 2.5">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.5_Lat_Err.svg' | url }}" alt="Lat Err test 2.5">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/2.5_F_Delta.svg' | url }}" alt="F_Delta test 2.5">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.1022 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.50 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-4%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The Lyapunov-based adaptive observer gives the best results of the three estimation methods.
+      Its adaptation law comes directly from a Lyapunov stability proof: the slip angle estimates are adjusted continuously to guarantee that the error converges, instead of simply being filtered.
+      The steering command stays as smooth as in Test 2.4 and recovers the accuracy lost to the filtering delay.
+      With only 4% degradation compared with the linear tyre, the observer compensates almost all of the non-linear Pacejka effects.
+      This is the configuration kept for Level 3.
+    </div>
+  </article>
+
+</section>
+
+<hr class="neon-divider">
+
+<!-- ================================================================
+     LEVEL 3 — SIGMOID TRAJECTORY
+     ================================================================ -->
+<section class="result-section" id="niveau-3">
+
+  <p class="rs-label">// 03 · Level 3</p>
+  <h2 class="rs-title">Sigmoid</h2>
+  <p class="rs-sub">3 Tests · ZAdams Trajectory · Progress Reference : Test 3.1</p>
+
+  <!-- ── 3.1 — Full config ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">GPC & Lyapunov & Pacejka & Rear ON</h3>
+        <span class="rc-test-id">Test 3.1</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.1_Traj.svg' | url }}" alt="Trajectoire test 3.1">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.1_Lat_Err.svg' | url }}" alt="Lat Err test 3.1">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.1_F_Delta.svg' | url }}" alt="F_Delta test 3.1">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.0893 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.50 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The sigmoid is a standard benchmark in mobile robotics: its curvature changes continuously, which tests how well a path-tracking controller anticipates.
+      The GPC starts steering before the error appears, and the Lyapunov observer feeds accurate slip angle estimates into the prediction loop during the whole manoeuvre.
+      After the transition, the error oscillates briefly and then converges quickly on the final straight line.
+      The RMSE is lower than on QuartAdams, which is expected: a single transient followed by straight lines is easier to follow than a long circular section.
+    </div>
+  </article>
+
+  <!-- ── 3.2 — Rear OFF ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">GPC & Lyapunov & Pacejka & Rear OFF</h3>
+        <span class="rc-test-id">Test 3.2</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.2_Traj.svg' | url }}" alt="Trajectoire test 3.2">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.2_Lat_Err.svg' | url }}" alt="Lat Err test 3.2">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.2_F_Delta.svg' | url }}" alt="F_Delta test 3.2">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">6.3539 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">18.4307 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">NOT Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      Disabling the rear axle on the ZAdams trajectory leads to a complete failure.
+      Without the rear axle to separate the lateral error from the heading error, the sigmoid transition starts an oscillation that never dies out. The front axle keeps saturating at its mechanical limits, the heading error grows at each correction, and the vehicle never returns to the reference path.
+      The system is unstable, with a peak error above 18 m.
+      On QuartAdams, the same configuration only lost 20% (Test 2.1). Sharp heading changes are exactly the case where the rear axle is needed: here, it makes the difference between converging and diverging.
+    </div>
+  </article>
+
+  <!-- ── 3.3 — PD ── -->
+  <article class="result-card">
+    <div class="rc-header">
+      <div class="rc-header-text">
+        <h3 class="rc-title">PD & Lyapunov & Pacejka & Rear ON</h3>
+        <span class="rc-test-id">Test 3.3</span>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-traj">
+        <div class="rc-traj-inner">
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.3_Traj.svg' | url }}" alt="Trajectoire test 3.3">
+          <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" class="trajectory-svg"></svg>
+        </div>
+      </div>
+      <div class="rc-graphs">
+        <div class="rc-graph">
+          <div class="rc-graph-label">Lateral Errors</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.3_Lat_Err.svg' | url }}" alt="Lat Err test 3.3">
+        </div>
+        <div class="rc-graph">
+          <div class="rc-graph-label label-pink">Steering Angle (rad)</div>
+          <img src="{{ 'Projects/Projet_Simulateur/Results/assets/3.3_F_Delta.svg' | url }}" alt="F_Delta test 3.3">
+        </div>
+      </div>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric">
+        <span class="rc-metric-label">RMSE Lat</span>
+        <span class="rc-metric-value bad">0.3057 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Max Errors</span>
+        <span class="rc-metric-value bad">0.7020 m</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Stability</span>
+        <span class="rc-metric-value ok">Stable</span>
+      </div>
+      <div class="rc-metric">
+        <span class="rc-metric-label">Progress</span>
+        <span class="rc-metric-value bad">-242%</span>
+      </div>
+    </div>
+    <div class="rc-analysis">
+      The trajectory looks acceptable at first sight, but the numbers show otherwise.
+      The PD follows the general shape of the sigmoid but only reacts after the fact: the error peaks at 0,70 m at the apex of the curve, while the full GPC configuration stays below 0,50 m.
+      The steering angle confirms this reactive behaviour, with a single large correction applied once the error has already built up and no anticipation of the heading change.
+      The RMSE is more than three times higher than in Test 3.1. At low speed on a smooth trajectory the PD is enough, but the gap would grow at higher speeds or on harder paths.
+    </div>
+  </article>
+</section>
+
+  <hr class="neon-divider">
+
+<hr class="neon-divider">
+
+<!-- ================================================================
+     CONCLUSION
+     ================================================================ -->
+<section class="result-section" id="conclusion">
+  <div class="intro-block">
+
+    <p class="rs-label">// Conclusion</p>
+    <h2 class="rs-title">Takeaway</h2>
+
+    <div class="intro-body">
+      <p>
+        Each element of the architecture is useful, but not in every situation.
+        The PD is sufficient on a smooth trajectory at low speed.
+        Backstepping removes the steady-state lateral error that the PD leaves in the curve.
+        The feedforward term anticipates the curvature instead of reacting to it, but it needs accurate slip angle estimates.
+        The GPC compensates for the lag of the steering actuator.
+        The observer estimates the slip angles, so the controller stays accurate with the non-linear Pacejka tyre model.
+        The rear axle separates the lateral error from the heading error, which the front axle alone cannot do.
+      </p>
+      <p>
+        No element is redundant: each one corrects a weakness revealed by the previous test.
+        On the circular trajectory, the gap between the simplest and the most complete configuration stays small.
+        On the sigmoid, <strong>it decides whether the robot stays on the path or diverges</strong> (Test 3.2).
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+</section>
+
+<script src="{{ 'Projects/Projet_Simulateur/Results/Animations_Results.js' | url }}"></script>
+
+{% endblock %}

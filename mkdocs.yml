@@ -1,0 +1,91 @@
+site_name: Sam Bouchaud
+site_url: https://mydomain.org/mysite
+
+theme:
+  name: material
+  custom_dir: HTML_Template
+  logo: assets/logo_SB.svg
+  favicon: assets/logo_SB.svg
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette: 
+    scheme: slate
+    primary: black
+    accent: deep purple
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - content.code.copy
+    - navigation.prune
+    - toc.integrate
+
+
+markdown_extensions:
+  - admonition 
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html  
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - Theme/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - Theme/3_Dropdown/nav_dropdown.js
+
+extra_css:
+  - https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap
+  - https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap
+  - Theme/3_Dropdown/nav_dropdown.css
+
+nav:
+  - Homepage: index.md
+  - Simulator Project:
+    - Presentation: Projects/Projet_Simulateur/index_Presentation_4WS_Simu.md
+    - Theory:
+      - Overview:                 Projects/Projet_Simulateur/Theory/1_Simulator_Overview.md
+      - Path Tracking:            Projects/Projet_Simulateur/Theory/2_Path_Tracking_and_Error_Computation.md
+      - Mathematical Foundations: Projects/Projet_Simulateur/Theory/3_Mathematical_Foundations_&_Modeling.md
+      - Vehicle Dynamics:         Projects/Projet_Simulateur/Theory/4_Vehicle_Dynamics_and_Physical_Modeling.md
+      - State Observers:          Projects/Projet_Simulateur/Theory/5_State_Observers.md
+      - Front Axle Control:       Projects/Projet_Simulateur/Theory/6_Front_Axle_Control_Strategies.md
+      - Rear Axle Control:        Projects/Projet_Simulateur/Theory/7_Rear_Axle_Control_Strategies.md
+    - Implementation:
+      - Parameters & Launch:  Projects/Projet_Simulateur/Implementation/1_Parameters_Launch.md
+      - Path Tracking:        Projects/Projet_Simulateur/Implementation/2_Path_Tracking.md
+      - Vehicle Dynamics:     Projects/Projet_Simulateur/Implementation/3_Vehicle_Dynamics.md
+      - State Observers:      Projects/Projet_Simulateur/Implementation/4_State_Observers.md
+      - Front Axle Control:   Projects/Projet_Simulateur/Implementation/5_Front_Axle_Control.md
+      - Rear Axle Control:    Projects/Projet_Simulateur/Implementation/6_Rear_Axle_Control.md
+    - Results: Projects/Projet_Simulateur/index_Results_4WS_Simu.md
+  
+  - Cycloidal Gearbox Project :
+    - Presentation: Projects/Projet_Cycloidal_Gearbox/index_Presentation_Cycloidal_Gearbox.md
+    - Theory:
+      - Overview: Projects/Projet_Cycloidal_Gearbox/Theory/1_Cycloidal_Gearbox_Overview.md
+      - Cycloidal Profile: Projects/Projet_Cycloidal_Gearbox/Theory/2_Cycloidal_Profile.md
+      - Mechanical Contacts: Projects/Projet_Cycloidal_Gearbox/Theory/3_Cycloidal_Gearbox_Contacts.md
+      - Shaft Design: Projects/Projet_Cycloidal_Gearbox/Theory/4_Cycloidal_Gearbox_Shafts.md
+      - Bearings & Architecture: Projects/Projet_Cycloidal_Gearbox/Theory/5_Cycloidal_Gearbox_Bearings.md
+      - Material Selection: Projects/Projet_Cycloidal_Gearbox/Theory/6_Cycloidal_Gearbox_Material.md
+      - Design Optimization: Projects/Projet_Cycloidal_Gearbox/Theory/7_Cycloidal_Gearbox_Optimization.md
+      - Rotordynamics: Projects/Projet_Cycloidal_Gearbox/Theory/8_Cycloidal_Gearbox_Rotordynamics.md
+    - Implementation:
+      - Parameters & Materials: Projects/Projet_Cycloidal_Gearbox/Implementation/1_Parameters_Materials.md
+      - Profile Geometry:       Projects/Projet_Cycloidal_Gearbox/Implementation/2_Profile_Geometry.md
+      - Forces & Contacts:      Projects/Projet_Cycloidal_Gearbox/Implementation/3_Forces_Contacts.md
+      - Shafts & Mass:          Projects/Projet_Cycloidal_Gearbox/Implementation/4_Shafts_Mass.md
+      - Bearings:               Projects/Projet_Cycloidal_Gearbox/Implementation/5_Catalogues_Bearings.md
+      - Ashby Selection:        Projects/Projet_Cycloidal_Gearbox/Implementation/6_Ashby_Selection.md
+      - Optimization:           Projects/Projet_Cycloidal_Gearbox/Implementation/7_Optimization.md
+    - Results: Projects/Projet_Cycloidal_Gearbox/index_Results_Cycloidal_Gearbox.md

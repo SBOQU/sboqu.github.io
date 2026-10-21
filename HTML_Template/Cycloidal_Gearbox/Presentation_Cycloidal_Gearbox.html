@@ -1,0 +1,410 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sora:wght@200;300;400;600;700&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Presentation/Extra_Presentation_Cycloidal_Gearbox.css' | url }}">
+{% endblock %}
+
+{% block content %}
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background grid -->
+<div class="bg-grid">
+  <canvas id="bgCanvas"></canvas>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <!-- Kinematic playback confined to the hero -->
+  <div class="bg-cyclo">
+    <canvas id="cycloCanvas"></canvas>
+  </div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Python | 3DExperience | Cycloidal Drive
+  </div>
+
+  <h1 class="hero-title">
+    <span class="line-1">Cycloidal</span>
+    <span class="line-2">Gearbox</span>
+  </h1>
+
+  <p class="hero-desc">
+    A two-stage cycloidal gearbox for the shoulder of a 10 kg industrial robot, taken from the first equations to the final CAD, with every design choice fed into one optimization loop.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">Curtate Epicycloid</span>
+    <span class="chip">Pin-Roller Meshing</span>
+    <span class="chip">Two-Stage Reduction</span>
+    <span class="chip">100:1 Ratio</span>
+    <span class="chip">Hertzian Contact</span>
+    <span class="chip">EHL Lubrication</span>
+    <span class="chip">Pan-Hamrock</span>
+    <span class="chip">Von Mises Criterion</span>
+    <span class="chip">Rotordynamic Unbalance</span>
+    <span class="chip">Critical Speed</span>
+    <span class="chip">Isostatic Mounting</span>
+    <span class="chip">ISO 281</span>
+    <span class="chip">Ashby Selection Method</span>
+    <span class="chip">Differential Evolution</span>
+  </div>
+
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-target="100" data-prefix="1:">0</span>
+      <span class="stat-label">Reduction Ratio</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="160">0</span>
+      <span class="stat-label">Housing Diameter (mm)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="250">0</span>
+      <span class="stat-label">Output Torque (N·m)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="4000">0</span>
+      <span class="stat-label">Input Speed (Rpm)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PIPELINE
+     ============================================================ -->
+<section id="pipeline">
+  <p class="section-label">// Architecture</p>
+  <h2 class="pipeline-title">Design Pipeline</h2>
+  <p class="pipeline-sub">
+    Each parameter goes through five steps before it's fixed, from the first profile equations to the choice of standard catalog parts.
+  </p>
+
+<div class="pipeline-flow">
+  <!-- Block 1: Framing & Specs -->
+  <div class="pipe-block color-purple">
+    <div class="pipe-name">Needs &amp; Analysis</div>
+    <ul class="pipe-detail">
+      <li>KUKA KR 10, J2 joint</li>
+      <li>Torque &amp; speed targets</li>
+      <li>Two-stage choice</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 1 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <defs>
+        <filter id="glow1">
+          <feGaussianBlur stdDeviation="0.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#aa00ff" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#aa00ff" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#ff00cc" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 0s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 2: Analytical Design -->
+  <div class="pipe-block color-blue">
+    <div class="pipe-name">Disc Material</div>
+    <ul class="pipe-detail">
+      <li>Ashby charts</li>
+      <li>Weighted scoring</li>
+      <li>Material locked</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 2 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#00e5cc" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 0.5s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 3: FEM & Materials -->
+  <div class="pipe-block color-green">
+    <div class="pipe-name">Profile &amp; Contact</div>
+    <ul class="pipe-detail">
+      <li>Curtate epicycloid</li>
+      <li>Malhotra force model</li>
+      <li>Hertz and EHL film</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 3 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#10b981" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#10b981" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#ffe566" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 1s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 4: Multi-Objective Optimization -->
+  <div class="pipe-block color-yellow">
+    <div class="pipe-name">Sizing &amp; Optimization</div>
+    <ul class="pipe-detail">
+      <li>14 variables, 13 constraints</li>
+      <li>Differential evolution</li>
+      <li>Mass minimization</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 4 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#ffe566" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#ffe566" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#ff00cc" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 1.5s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 5: CAD & Manufacturing -->
+  <div class="pipe-block color-pink">
+    <div class="pipe-name">CAD &amp; Manufacturing</div>
+    <ul class="pipe-detail">
+      <li>Isostatic architecture</li>
+      <li>Rotordynamic balance</li>
+      <li>3DExperience drawings</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     MODULES
+     ============================================================ -->
+<section id="modules">
+  <p class="section-label">// Modules</p>
+  <h2 class="modules-title">What's Inside</h2>
+  <p class="modules-sub">Eight self-contained modules, each solving a distinct challenge of designing a precision cycloidal reducer for an industrial robot joint.</p>
+
+  <div class="modules-grid">
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/1_Cycloidal_Gearbox_Overview/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">01</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Overview.svg' | url }}" width="56" height="56" alt="Overview">
+        <div class="mod-name">Overview</div>
+        <p class="mod-desc">
+          Target: The shoulder J2 of a KUKA KR 10. Establishes the two-stage 10x10 architecture, the full kinematic chain, and frames the design against the industrial reference, the Nabtesco RV precision reducer.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Two-Stage Layout</span>
+          <span class="mod-tag">Industrial Target</span>
+          <span class="mod-tag">Nabtesco Benchmark</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/2_Cycloidal_Profile/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">02</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Profile_Generation.svg' | url }}" width="56" height="56" alt="Profile Generation">
+        <div class="mod-name">Cycloidal Profile Generation</div>
+        <p class="mod-desc">
+          Builds the disk geometry from the curtate epicycloid equations. Tunes the curtate coefficient K₁, computes the profile curvature radius, enforces the non-undercut condition with a direct curvature check, and calibrates the lobe to avoid sharp cusps.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Curtate Epicycloid</span>
+          <span class="mod-tag">K₁ Tuning</span>
+          <span class="mod-tag">Non-Undercut</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/3_Cycloidal_Gearbox_Contacts/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">03</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Mechanical_Contacts.svg' | url }}" width="56" height="56" alt="Contact Mechanics">
+        <div class="mod-name">Mechanical Contacts</div>
+        <p class="mod-desc">
+          Verifies both critical contacts, roller against profile and pin against bore, on two fronts at once: Hertzian contact pressure against admissible limits, and Pan-Hamrock EHL film thickness through the λ ratio to confirm the lubrication regime.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Hertzian Stress</span>
+          <span class="mod-tag">Pan-Hamrock</span>
+          <span class="mod-tag">λ Ratio</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/4_Cycloidal_Gearbox_Shafts/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">04</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Von_Mises.svg' | url }}" width="56" height="56" alt="Shaft Von Mises">
+        <div class="mod-name">Shaft Design &amp; Von Mises</div>
+        <p class="mod-desc">
+          Sizes the two eccentric shafts, one per stage, under combined bending and torsion. Propagates the sizing torque back through each stage and rounds the minimum diameters up to standard values compatible with the bearing catalog.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Von Mises</span>
+          <span class="mod-tag">Case-Hardened Steel</span>
+          <span class="mod-tag">Standard Diameters</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/8_Cycloidal_Gearbox_Rotordynamics/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">05</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Rotordynamics.svg' | url }}" width="56" height="56" alt="Rotordynamics">
+        <div class="mod-name">Rotordynamics &amp; Unbalance</div>
+        <p class="mod-desc">
+          The input shaft spins at 4000 rpm carrying an orbiting cycloidal disc. The residual unbalance force F = m e ω² is quantified, the first critical speed is estimated in closed form at about 75 times the operating speed, so no FE model is needed. The effect of the unbalance on the life of the eccentric bearing is then computed.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Rotordynamics</span>
+          <span class="mod-tag">Critical Speed</span>
+          <span class="mod-tag">Bearing Life</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/5_Cycloidal_Gearbox_Bearings/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">06</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Isostatic_Bearings.svg' | url }}" width="56" height="56" alt="Isostatic Bearings">
+        <div class="mod-name">Isostatic Architecture &amp; Bearings</div>
+        <p class="mod-desc">
+          Makes the assembly mountable. Each output pin gets a clearance equal to the orbit of the disc, so the pins stop fighting each other. The overturning moment is carried by a single SKF four point contact bearing, the only design that fits both the 155 mm envelope and the 40 mm axial budget.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Functional Clearance</span>
+          <span class="mod-tag">4 Point Contact</span>
+          <span class="mod-tag">ISO 281</span>
+          <span class="mod-tag">SKF Catalog</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/6_Cycloidal_Gearbox_Material/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">07</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Fuse_Pin_Ashby.svg' | url }}" width="56" height="56" alt="Disc Material Ashby">
+        <div class="mod-name">Disc Material &amp; Ashby</div>
+        <p class="mod-desc">
+          With no fuse element in the drivetrain, the disc has to absorb overloads on its own. Ashby charts and elimination filters narrow the database down to seven steels, then a weighted score, checked by a sensitivity study on the weights, locks the disc material.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Ashby Method</span>
+          <span class="mod-tag">Weighted Scoring</span>
+          <span class="mod-tag">Sensitivity Check</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/Theory/7_Cycloidal_Gearbox_Optimization/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">08</span>
+        <img src="{{ 'assets/Cycloidal_Gearbox_icons/Icon_Multi_Objective.svg' | url }}" width="56" height="56" alt="Optimization">
+        <div class="mod-name">Constrained Optimization</div>
+        <p class="mod-desc">
+          The meta-tool that drives everything else. A 14-dimensional design vector (5 integers + 9 continuous) is minimized for total disk mass under 13 penalized geometric, contact, tribological and life constraints, solved by differential evolution with simultaneous catalog bearing selection.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Differential Evolution</span>
+          <span class="mod-tag">14 Variables</span>
+          <span class="mod-tag">Penalty Function</span>
+          <span class="mod-tag">Mass Minimization</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     DESIGN PHILOSOPHY HIGHLIGHT
+     ============================================================ -->
+<section id="highlight">
+  <div class="highlight-inner">
+    <div class="highlight-left">
+      <p class="section-label">// Design Philosophy</p>
+      <h2 class="highlight-title">Analytical, Tribological, Dynamic, All Cross Checked</h2>
+      <p class="highlight-text">
+        Instead of trusting a single static criterion, every component is checked on three planes at once: geometry, tribology and dynamics. The whole design is closed by one optimization on disc mass under hard constraints, rather than by hand iteration, and every bearing comes from a real industrial catalog.
+      </p>
+      <ul class="control-list">
+        <li>
+          <span class="ctrl-dot purple"></span>
+          <span>
+            <span class="ctrl-name">Analytical Profile &amp; Contact</span>
+            <span class="ctrl-sub">Profile generated from first principles, with Hertz pressure and EHL film thickness checked simultaneously on both contact families.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot pink"></span>
+          <span>
+            <span class="ctrl-name">Rotordynamic Verification</span>
+            <span class="ctrl-sub">Residual unbalance of the orbiting disc quantified, and first critical speed estimated in closed form at about 75 times the operating speed.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot cyan"></span>
+          <span>
+            <span class="ctrl-name">Isostatic &amp; Manufacturable</span>
+            <span class="ctrl-sub">Architecture designed to be mountable, with a functional pin clearance and a single moment bearing on the output, not just for raw performance.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot yellow"></span>
+          <span>
+            <span class="ctrl-name">Optimization-Driven Selection</span>
+            <span class="ctrl-sub">Disc material picked with the Ashby method, bearings chosen from real SKF references, and disc mass minimized by differential evolution.</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="highlight-right">
+      <div class="diagram-canvas-wrap">
+        <canvas id="diagramCanvas" width="560" height="560"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div>
+    <div class="footer-name">Sam Bouchaud</div>
+    <div class="footer-sub">Robotics Engineer Student | Two Stage Cycloidal Reducer for Industrial Robot Joint</div>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="#">Documentation</a>
+    <a class="footer-link" href="#">GitHub</a>
+    <a class="footer-link" href="#">Contact</a>
+  </div>
+</footer>
+
+<script src="{{ 'Projects/Projet_Cycloidal_Gearbox/Presentation/Animations_Presentation_Cycloidal_Gearbox.js' | url }}"></script>
+
+{% endblock %}

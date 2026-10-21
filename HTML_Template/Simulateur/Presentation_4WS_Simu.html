@@ -1,0 +1,374 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sora:wght@200;300;400;600;700&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'Projects/Projet_Simulateur/Presentation/Extra_Presentation_4WS_Simu.css' | url }}">
+{% endblock %}
+
+{% block content %}
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background grid -->
+<div class="bg-grid">
+  <canvas id="bgCanvas"></canvas>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <canvas class="hero-path-canvas" id="heroCanvas"></canvas>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Scilab · Autonomous Robotics · 4WS
+  </div>
+
+  <h1 class="hero-title">
+    <span class="line-1">Agricultural Robot</span>
+    <span class="line-2">Simulator</span>
+  </h1>
+
+  <p class="hero-desc">
+    A high-fidelity closed-loop simulation environment for 4-Wheel Steering autonomous vehicles navigating unstructured agricultural terrains with slip, mud, slopes and all.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">Path Tracking</span>
+    <span class="chip">Frenet-Serret</span>
+    <span class="chip">Curvilinear Abscissa</span>
+    <span class="chip">Bicycle Model</span>
+    <span class="chip">4WS Control</span>
+    <span class="chip">State Observer</span>
+    <span class="chip">Kinematic Inversion</span>
+    <span class="chip">Lyapunov-based Adaptive Observer</span>
+    <span class="chip">PD Control</span>
+    <span class="chip">Backstepping</span>
+    <span class="chip">Exact Linearization</span>
+    <span class="chip">Model Predictive Control</span>
+    <span class="chip">Tire Dynamics</span>
+    <span class="chip">Pacejka Magic Formula</span>
+    <span class="chip">Actuator Lag</span>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-target="14">0</span>
+      <span class="stat-label">Modules</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="4">0</span>
+      <span class="stat-label">Control Laws</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="3">0</span>
+      <span class="stat-label">Observer Types</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="3">0</span>
+      <span class="stat-label">Trajectories</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PIPELINE
+     ============================================================ -->
+<section id="pipeline">
+  <p class="section-label">// Architecture</p>
+  <h2 class="pipeline-title">Closed-Loop Pipeline</h2>
+  <p class="pipeline-sub">
+    Every simulation tick flows through four stages, from raw GPS waypoints to physical wheel forces — and back through state observers.
+  </p>
+
+<div class="pipeline-flow">
+  <!-- Block 1: Path Tracking -->
+  <div class="pipe-block color-purple">
+    <div class="pipe-name">Path Tracking</div>
+    <ul class="pipe-detail">
+      <li>Butterworth filter</li>
+      <li>Frenet-Serret frame</li>
+      <li>Lateral &amp; heading errors</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 1 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <defs>
+        <filter id="glow1">
+          <feGaussianBlur stdDeviation="0.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#aa00ff" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#aa00ff" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#ff00cc" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 0s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 2: System Models -->
+  <div class="pipe-block color-blue">
+    <div class="pipe-name">System Models</div>
+    <ul class="pipe-detail">
+      <li>Bicycle model</li>
+      <li>State observers</li>
+      <li>Slip angle estimation</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 2 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#00e5cc" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 0.5s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 3: Vehicle Dynamics -->
+  <div class="pipe-block color-green">
+    <div class="pipe-name">Vehicle Dynamics</div>
+    <ul class="pipe-detail">
+      <li>Pacejka tire model</li>
+      <li>Actuator delay</li>
+      <li>Euler integration</li>
+    </ul>
+  </div>
+
+  <!-- Arrow 3 -->
+  <div class="pipe-arrow">
+    <svg width="30" height="20" viewBox="0 0 30 20">
+      <line x1="2" y1="10" x2="22" y2="10" stroke="#10b981" stroke-width="1.5" filter="url(#glow1)"/>
+      <polyline points="16,5 24,10 16,15" fill="none" stroke="#10b981" stroke-width="1.5" filter="url(#glow1)"/>
+      <circle class="flow-particle" r="3" fill="#ffe566" filter="url(#glow1)"
+        style="offset-path: path('M 2 10 L 24 10'); animation-delay: 1s;"/>
+    </svg>
+  </div>
+
+  <!-- Block 4: State Vector -->
+  <div class="pipe-block color-yellow">
+    <div class="pipe-name">State Vector</div>
+    <ul class="pipe-detail">
+      <li>Pose X, Y, θ</li>
+      <li>Slip β, steering δ<sub>F</sub>, δ<sub>R</sub></li>
+      <li>Fed back to the next tick</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     MODULES
+     ============================================================ -->
+<section id="modules">
+  <p class="section-label">// Modules</p>
+  <h2 class="modules-title">What's Inside</h2>
+  <p class="modules-sub">Seven self-contained modules, each solving a distinct challenge of autonomous navigation on real agricultural terrain.</p>
+
+  <div class="modules-grid">
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/1_Simulator_Overview/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">01</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Overview.svg' | url }}" width="56" height="56" alt="Overview">
+        <div class="mod-name">Overview</div>
+        <p class="mod-desc">
+          Defines the simulator's architecture, scope, and physical foundations. Introduces the closed-loop pipeline from raw GPS waypoints to steering commands, establishes the Extended Bicycle Model, and lists the key geometric and inertial parameters of the vehicle.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Global Architecture</span>
+          <span class="mod-tag">Bicycle Model</span>
+          <span class="mod-tag">Parameter Table</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/2_Path_Tracking_and_Error_Computation/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">02</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Path_Tracking.svg' | url }}" width="56" height="56" alt="Icon Path Tracking">
+        <div class="mod-name">Path Tracking & Error Computation</div>
+        <p class="mod-desc">
+          Converts raw RTK-GPS waypoints into smooth, derivable trajectories. Finds the robot's closest point on the path, computes lateral and heading errors in the Frenet-Serret frame, and anticipates upcoming curvature for feedforward control.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Butterworth Filter</span>
+          <span class="mod-tag">Polynomial Fitting</span>
+          <span class="mod-tag">Curvature</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/3_Mathematical_Foundations_&_Modeling/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">03</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Math_Foundations.svg' | url }}" width="56" height="56" alt="Icon Math Foundations">
+        <div class="mod-name">Mathematical Foundations</div>
+        <p class="mod-desc">
+          Establishes the complete kinematic and dynamic model in the moving reference frame. Handles tangent singularities, angular wrapping, and first-order actuator delay modeling via state-space representation.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Extended Kinematic Model</span>
+          <span class="mod-tag">Path Scale Factor</span>
+          <span class="mod-tag">Actuator Delay</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/4_Vehicle_Dynamics_and_Physical_Modeling/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">04</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Vehicle_Dynamics.svg' | url }}" width="56" height="56" alt="Icon Vehicle Dynamics">
+        <div class="mod-name">Vehicle Dynamics & Physical Modeling</div>
+        <p class="mod-desc">
+          Simulates a full rigid-body 4-wheel vehicle. Implements the extended bicycle model, Pacejka-inspired lateral tire force generation, and Euler integration for real-time state propagation under non-linear terrain conditions.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Yaw Inertia</span>
+          <span class="mod-tag">Newton-Euler </span>
+          <span class="mod-tag">Pacejka Magic Formula</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/5_State_Observers/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">05</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_State_Observer.svg' | url }}" width="56" height="56" alt="Icon State Observer">
+        <div class="mod-name">State Observers</div>
+        <p class="mod-desc">
+          Tire slip angles can't be measured without prohibitively expensive sensors. Three observer architectures — Kinematic Inversion, Luenberger and Lyapunov-based Adaptive Observer — reconstruct \(\beta_F\) and \(\beta_R\) in real-time from available measurements.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Kinematic Inversion</span>
+          <span class="mod-tag">Luenberger</span>
+          <span class="mod-tag">Lyapunov-based Adaptive Observer</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/6_Front_Axle_Control_Strategies/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">06</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Front_Axle.svg' | url }}" width="56" height="56" alt="Icon Front Axle">
+        <div class="mod-name">Front Axle Control</div>
+        <p class="mod-desc">
+          Three levels of control sophistication for the primary steering actuator: a baseline PD, a non-linear Exact Linearization via Backstepping, and a predictive GPC layer that compensates for hydraulic actuator lag.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">PD Control</span>
+          <span class="mod-tag">Backstepping</span>
+          <span class="mod-tag">GPC</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="{{ 'Projects/Projet_Simulateur/Theory/7_Rear_Axle_Control_Strategies/' | url }}" class="mod-card-link">
+      <div class="mod-card">
+        <span class="mod-num">07</span>
+        <img src="{{ 'assets/4WS_Simu_icons/Icon_Rear_Axle.svg' | url }}" width="56" height="56" alt="Icon Rear Axle">
+        <div class="mod-name">Rear Axle Control</div>
+        <p class="mod-desc">
+          The rear axle is an active contributor: counter-phase for tight headland turns, in-phase for crab steering on slopes, and quadratic curvature-based resolution for heading stabilization without disturbing lateral tracking.
+        </p>
+        <div class="mod-tags">
+          <span class="mod-tag">Crab Steering</span>
+          <span class="mod-tag">Counter-phase</span>
+          <span class="mod-tag">Quadratic Law</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     CONTROL HIGHLIGHT
+     ============================================================ -->
+<section id="highlight">
+  <div class="highlight-inner">
+    <div class="highlight-left">
+      <p class="section-label">// Control Strategies</p>
+      <h2 class="highlight-title">From PD to Predictive Non-Linear</h2>
+      <p class="highlight-text">
+        The simulator stacks four control laws of increasing sophistication, letting you benchmark each against real agricultural constraints — curvature, slip, actuator lag — in the same environment.
+      </p>
+      <ul class="control-list">
+        <li>
+          <span class="ctrl-dot purple"></span>
+          <span>
+            <span class="ctrl-name">PD Controller</span>
+            <span class="ctrl-sub">Baseline linear proportional-derivative. Fast to tune, blind to curvature and slip.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot pink"></span>
+          <span>
+            <span class="ctrl-name">Exact Linearization — Backstepping</span>
+            <span class="ctrl-sub">Transforms the non-linear kinematic model into a linear chained integrator system for perfect geometric tracking.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot cyan"></span>
+          <span>
+            <span class="ctrl-name">Predictive Feedforward (GPC)</span>
+            <span class="ctrl-sub">Predicts future robot position over a planning horizon to cancel phase lag from actuator inertia.</span>
+          </span>
+        </li>
+        <li>
+          <span class="ctrl-dot yellow"></span>
+          <span>
+            <span class="ctrl-name">Rear Axle Quadratic Law</span>
+            <span class="ctrl-sub">Solves a curvature-dependent second-order equation to decouple lateral error from heading error.</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="highlight-right">
+      <div class="diagram-canvas-wrap">
+        <canvas id="diagramCanvas" width="900" height="380"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div>
+    <div class="footer-name">Sam Bouchaud</div>
+    <div class="footer-sub">Robotics Engineer Student · 4WS Agricultural Robot Simulator</div>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="#">Documentation</a>
+    <a class="footer-link" href="#">GitHub</a>
+    <a class="footer-link" href="#">Contact</a>
+  </div>
+</footer>
+
+<script src="{{ 'Projects/Projet_Simulateur/Presentation/Animations_Presentation_4WS_Simu.js' | url }}"></script>
+
+{% endblock %}

@@ -1,0 +1,297 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600&family=Inter:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Theme/1_Homepage/Extra_Homepage.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     SECTION 1 — HERO
+     ============================================================ -->
+
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Sam <span class="hero-title-last">Bouchaud</span></h1>
+    <p class="hero-subtitle">Mechatronics &amp; Robotics Engineer</p>
+    <div class="hero-actions">
+      <a class="hero-btn hero-btn--primary" href="#projects">See my projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </a>
+      <a class="hero-btn hero-btn--ghost" href="{{ 'assets/CV_Sam_Bouchaud.pdf' | url }}" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download CV
+      </a>
+      <a class="hero-icon-btn" href="https://www.linkedin.com/in/sam-bouchaud/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4z"/></svg>
+      </a>
+      <a class="hero-icon-btn" href="mailto:sambouchaudquoirez@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true"><span class="hero-scroll-line"></span>Scroll</div>
+</div>
+
+
+
+
+<!-- ============================================================
+     SECTION 2 — TERRAIN DIVIDER (Canvas Animation)
+     ============================================================ -->
+
+<div class="terrain-divider">
+  <canvas class="terrain-canvas" aria-hidden="true"></canvas>
+</div>
+
+
+<!-- ============================================================
+     SECTION 3 — ABOUT ME
+     Layout : 2 colonnes (photo + bio | timeline)
+     ============================================================ -->
+
+<div class="about-section">
+
+  <h2 class="about-title">About Me</h2>
+
+  <!-- Colonne gauche : Photo + Bio + Tags -->
+  <div class="about-left">
+
+    <div class="about-photo">
+      <img src='Theme/1_Homepage/Image/pp.jpeg' alt="Sam Bouchaud"/>
+    </div>
+
+    <h2 class="about-name">Sam Bouchaud</h2>
+    <div class="about-divider"></div>
+
+    <p class="about-bio">
+      I am currently pursuing an engineering degree in Mechatronics alongside a Master's double degree
+      in Artificial Perception and Robotics. I am deeply passionate about building robotic systems.
+      As a straight shooter, I value honest communication and practical execution. From CAD design to
+      final implementation, I tackle projects with discipline and autonomy. And when I'm not wrestling
+      with my CAD models, I am a proud reservist in the 92nd Infantry Regiment.
+    </p>
+
+    <div class="about-tags">
+      <span class="about-tag">Python</span>
+      <span class="about-tag">MATLAB / Simscape</span>
+      <span class="about-tag">3DEXPERIENCE</span>
+      <span class="about-tag">SolidWorks</span>
+      <span class="about-tag">PyTorch</span>
+    </div>
+
+  </div>
+
+  <!-- Colonne droite : Timeline formation -->
+  <div class="about-right">
+
+    <p class="about-section-label">Education</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-date">2025 – 2026</div>
+          <div class="tl-school">MSc in Artificial Perception and Robotics</div>
+          <div class="tl-detail">École Universitaire de Physique et d'Ingénierie, UCA</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-date">2023 – 2026</div>
+          <div class="tl-school">Engineering school, Mechatronic Systems and Robotics</div>
+          <div class="tl-detail">INP SIGMA Clermont, Aubière</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-date">2022 – 2023</div>
+          <div class="tl-school">CPGE ATS, Industrial Engineering</div>
+          <div class="tl-detail">Lycée Philippe de Girard, Avignon</div>
+          <div class="tl-detail">One-year intensive program preparing for engineering school entrance exams.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-date">2020 – 2022</div>
+          <div class="tl-school">University Diploma in Mechanical Engineering</div>
+          <div class="tl-detail">IUT Toulon Var, La Garde</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ============================================================
+     SECTION 4 — MY SKILLS
+     Grille de cards — ajouter une card : copier un bloc .feature-card
+     ============================================================ -->
+
+<div class="features-section">
+
+  <h2 class="features-title">My Skills</h2>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5 3.5 7.25v9.5L12 21.5l8.5-4.75v-9.5z"/><path d="M3.5 7.25 12 12l8.5-4.75M12 12v9.5"/></svg>
+        </div>
+        <span class="feature-num">01</span>
+      </div>
+      <h3 class="feature-heading">CAD &amp; Mechanical Design</h3>
+      <p class="feature-text">From specifications to manufacturing drawings: parametric parts, assemblies and supplier coordination.</p>
+      <p class="feature-proof">Baggage sorting system redesign at <strong>VINCI ENERGIES</strong> and full CAD of a <strong>two-stage cycloidal gearbox</strong></p>
+      <div class="feature-tools"><span>3DEXPERIENCE</span><span>SolidWorks</span><span>Inventor</span></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M6.8 7 10.3 11M6.8 17l3.5-4M13.7 11l3.5-4M13.7 13l3.5 4"/></svg>
+        </div>
+        <span class="feature-num">02</span>
+      </div>
+      <h3 class="feature-heading">Machine Learning &amp; Deep Learning</h3>
+      <p class="feature-text">CNNs, LSTMs, GRUs, reinforcement learning and structured state space sequence models (S5).</p>
+      <p class="feature-proof">Fully data-driven <strong>digital twin</strong> of a cable-driven robot built on an S5 architecture, research internship in Italy</p>
+      <div class="feature-tools"><span>PyTorch</span><span>Scikit-learn</span><span>Python</span></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 9h15" stroke-dasharray="2 2.5"/><path d="M3 19h3c1.6 0 2-13 5.5-13s3 5 5.5 5 2.4-2 4-2"/></svg>
+        </div>
+        <span class="feature-num">03</span>
+      </div>
+      <h3 class="feature-heading">Non-Linear Control</h3>
+      <p class="feature-text">Backstepping, exact linearization, GPC and Lyapunov-based adaptive observers.</p>
+      <p class="feature-proof">Validated on a <strong>4WS agricultural robot</strong> simulator</p>
+      <div class="feature-tools"><span>Scilab</span><span>MATLAB</span></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>
+        </div>
+        <span class="feature-num">04</span>
+      </div>
+      <h3 class="feature-heading">Simulation &amp; Modeling</h3>
+      <p class="feature-text">High-fidelity 4WS vehicle simulator with Pacejka tire dynamics and closed-loop control.</p>
+      <p class="feature-proof">Cable-driven robot simulated as a <strong>digital twin</strong> during my research internship in Italy</p>
+      <div class="feature-tools"><span>Scilab</span><span>MATLAB / Simscape</span></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <span class="feature-num">05</span>
+      </div>
+      <h3 class="feature-heading">Machine Design &amp; Sizing</h3>
+      <p class="feature-text">Hertz contacts and EHL film, von Mises shaft sizing, ISO 281 bearing selection, Ashby material choice, rotordynamics and FEA.</p>
+      <p class="feature-proof">Two-stage <strong>1:100 cycloidal gearbox</strong> sized end to end, peak contact at <strong>1&nbsp;042 MPa</strong> for 1&nbsp;800 MPa admissible</p>
+      <div class="feature-tools"><span>Python</span><span>ANSYS</span><span>Inspire</span></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-top">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+        </div>
+        <span class="feature-num">06</span>
+      </div>
+      <h3 class="feature-heading">Programming &amp; Automation</h3>
+      <p class="feature-text">Pipeline auto-generating supplier documents from ERP data at VINCI ENERGIES.</p>
+      <p class="feature-proof">Saved <strong>30 hours</strong> and up to <strong>€3500</strong> per project</p>
+      <div class="feature-tools"><span>Python</span><span>Excel</span><span>SQL</span></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SECTION 5 — PROJECTS
+     Liste de projets — ajouter un projet : copier un bloc .proj-card
+     ============================================================ -->
+
+<div class="projects-section" id="projects">
+
+  <h2 class="projects-title">Projects</h2>
+
+  <div class="projects-list">
+
+    <!-- Projet 01 : Agricultural Robot Simulator -->
+    <article class="proj-card">
+      <div class="proj-visual">
+        <canvas class="proj-canvas" data-visual="simulator" aria-hidden="true"></canvas>
+        <span class="proj-badge">Scilab · 4WS</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-eyebrow"><span class="proj-num">01</span>Autonomous Robotics</div>
+        <h3 class="proj-name">Agricultural Robot Simulator</h3>
+        <p class="proj-desc">Closed-loop simulation environment for 4-wheel steering autonomous vehicles on unstructured agricultural terrain: slip, mud and slopes.</p>
+        <div class="proj-stats">
+          <div class="proj-stat"><strong>4</strong><span>Control laws</span></div>
+          <div class="proj-stat"><strong>3</strong><span>Observers</span></div>
+          <div class="proj-stat"><strong>14</strong><span>Modules</span></div>
+        </div>
+        <div class="proj-footer">
+          <div class="proj-tags">
+            <span class="proj-tag">Scilab</span>
+            <span class="proj-tag">Non-Linear Control</span>
+            <span class="proj-tag">State Observer</span>
+          </div>
+          <a href="{{ 'Projects/Projet_Simulateur/index_Presentation_4WS_Simu/' | url }}" class="proj-btn">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Projet 02 : Two-Stage Cycloidal Gearbox -->
+    <article class="proj-card">
+      <div class="proj-visual">
+        <canvas class="proj-canvas" data-visual="gearbox" aria-hidden="true"></canvas>
+        <span class="proj-badge">Python · 3DEXPERIENCE</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-eyebrow"><span class="proj-num">02</span>Machine Design</div>
+        <h3 class="proj-name">Two-Stage Cycloidal Gearbox</h3>
+        <p class="proj-desc">Gearbox for the shoulder of a 10 kg industrial robot, from the first equations to the final CAD, with every design choice fed into one optimization loop.</p>
+        <div class="proj-stats">
+          <div class="proj-stat"><strong>1:100</strong><span>Reduction ratio</span></div>
+          <div class="proj-stat"><strong>Ø160</strong><span>Housing (mm)</span></div>
+          <div class="proj-stat"><strong>96</strong><span>Parts</span></div>
+        </div>
+        <div class="proj-footer">
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">3DEXPERIENCE</span>
+            <span class="proj-tag">Optimization</span>
+          </div>
+          <a href="{{ 'Projects/Projet_Cycloidal_Gearbox/index_Presentation_Cycloidal_Gearbox/' | url }}" class="proj-btn">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<script src="{{ 'Theme/1_Homepage/Animations_Homepage.js' | url }}"></script>
+
+{% endblock %}

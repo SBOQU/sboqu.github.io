@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ base_url }}/Theme/4_Implementation/Extra_Implementation.css">
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ base_url }}/Theme/4_Implementation/Animations_Implementation.js"></script>
+{% endblock %}

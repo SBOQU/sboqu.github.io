@@ -1,0 +1,335 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sora:wght@200;300;400;600;700&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Presentation/Extra_Presentation_Cycloidal_Gearbox.css' | url }}">
+  <link rel="stylesheet" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/Extra_Results_Cycloidal_Gearbox.css' | url }}">
+{% endblock %}
+
+{% block content %}
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background grid -->
+<div class="bg-grid">
+  <canvas id="bgCanvas"></canvas>
+</div>
+
+<!-- Ink of the blueprint style: black and grey lines become light cyan, brown dimensions become yellow, white becomes transparent -->
+<svg class="drawing-filters" aria-hidden="true" focusable="false">
+  <filter id="blueprintInk" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0.4 0 -0.4 0 0.8   -0.064 0 0.064 0 0.93   -1.195 0 1.195 0 1   -0.1 0 -0.9 1 0"/>
+  </filter>
+</svg>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="results-hero">
+  <p class="section-label">// Results</p>
+  <h1 class="results-title">CAD &amp; Drawings</h1>
+  <p class="results-desc">
+    The final gearbox, ready to explore: the 3D model, both stages against their limits, and the drawings.
+  </p>
+</section>
+
+<!-- ============================================================
+     FINAL ASSEMBLY: 3D MODEL
+     ============================================================ -->
+<section class="results-block results-block--model" id="results-model">
+  <div class="viewer-frame" id="gearboxViewer"
+       data-model="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Cycloidal_Gearbox_Final.glb' | url }}">
+    <span class="viewer-badge">Final design · 10 lobes · 11 rollers</span>
+    <div class="viewer-loading">
+      <span class="viewer-loading-text">Loading the 3D model</span>
+      <div class="viewer-progress"><div class="viewer-progress-bar"></div></div>
+    </div>
+    <div class="viewer-hud" hidden>Input <b data-hud="input">0,0</b> turns · Output <b data-hud="output">0,000</b> turns</div>
+    <aside class="viewer-card" hidden>
+      <button type="button" class="viewer-card-close" aria-label="Close">×</button>
+      <span class="viewer-card-stage"></span>
+      <strong class="viewer-card-title"></strong>
+      <span class="viewer-card-role"></span>
+      <ul class="viewer-card-figures"></ul>
+      <div class="viewer-card-item">
+        <span class="viewer-card-item-label"></span>
+        <button type="button" class="viewer-card-link">Find on the drawing ↓</button>
+      </div>
+    </aside>
+    <div class="viewer-controls">
+      <button type="button" class="viewer-button" data-action="play">Play</button>
+      <button type="button" class="viewer-button" data-action="explode">Exploded view</button>
+      <button type="button" class="viewer-button" data-action="section">Section</button>
+      <button type="button" class="viewer-button" data-action="housing">Housing: solid</button>
+      <button type="button" class="viewer-button" data-action="reset">Reset view</button>
+      <button type="button" class="viewer-button viewer-button--focus" data-action="show-all" hidden>Show all parts</button>
+    </div>
+    <span class="viewer-hint">Drag to rotate · Ctrl + scroll to zoom · Click a part</span>
+  </div>
+  <div class="viewer-footer">
+    <p class="figure-caption">Exported from the final STEP file. Play runs the real kinematics: 1:10 per stage, 1:100 overall.</p>
+    <a class="viewer-button viewer-download" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Two_Stage_Cycloidal_Gearbox.step' | url }}" download>Download STEP · 7,5 MB</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     KEY FIGURES OF THE FINAL CAD
+     ============================================================ -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-target="100" data-prefix="1:">0</span>
+      <span class="stat-label">Reduction Ratio</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="160">0</span>
+      <span class="stat-label">Housing Diameter (mm)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="92">0</span>
+      <span class="stat-label">Overall Length (mm)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="96">0</span>
+      <span class="stat-label">Parts</span>
+    </div>
+  </div>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     THE TWO STAGES
+     ============================================================ -->
+<section class="results-block" id="results-stages">
+  <p class="section-label">// Stages</p>
+  <h2 class="block-title">Two Stages, One Housing</h2>
+  <p class="block-text">Same 11 rollers, same 10-lobe pattern. Stage 1 runs fast and light, stage 2 slow and loaded.</p>
+
+  <!-- Stage 1 -->
+  <article class="result-card">
+    <div class="rc-header">
+      <h3 class="rc-title">Stage 1 · High Speed</h3>
+      <span class="rc-tag">4 000 → 400 rpm · 25 N·m</span>
+    </div>
+    <div class="rc-body">
+      <figure class="stage-visual" data-stage="1">
+        <figcaption>True profile and geometry, slowed down. The cyan pin follows the disc.</figcaption>
+      </figure>
+      <dl class="rc-specs">
+        <div><dt>Eccentricity</dt><dd>3,0 mm</dd></div>
+        <div><dt>Lobes / rollers</dt><dd>10 / 11 on Ø118</dd></div>
+        <div><dt>Eccentric bearing</dt><dd>INA HK 1210</dd></div>
+        <div><dt>Output pins</dt><dd>10 × Ø6 on Ø52</dd></div>
+        <div><dt>Rollers per pin</dt><dd>1 × SKF 61903</dd></div>
+        <div><dt>Roller life</dt><dd>2 078 830 h</dd></div>
+      </dl>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Roller contact</span>
+        <span class="rc-metric-value">364 MPa</span>
+        <span class="rc-metric-status">✓ Limit 2 000 MPa</span>
+      </div>
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Pin contact</span>
+        <span class="rc-metric-value">343 MPa</span>
+        <span class="rc-metric-status">✓ Limit 1 800 MPa</span>
+      </div>
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Oil film λ</span>
+        <span class="rc-metric-value">6,0</span>
+        <span class="rc-metric-status">✓ Full film, above 3</span>
+      </div>
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Eccentric bearing life</span>
+        <span class="rc-metric-value">1 438 h</span>
+        <span class="rc-metric-status">✓ Target 500 h</span>
+      </div>
+    </div>
+    <p class="rc-analysis">
+      Every contact stays under a fifth of its limit, on a full oil film. The needle bearing sets the life: 710 h once the unbalance of the disc is counted, still above the target.
+    </p>
+  </article>
+
+  <!-- Stage 2 -->
+  <article class="result-card">
+    <div class="rc-header">
+      <h3 class="rc-title">Stage 2 · High Torque</h3>
+      <span class="rc-tag">400 → 40 rpm · 250 N·m</span>
+    </div>
+    <div class="rc-body">
+      <figure class="stage-visual" data-stage="2">
+        <figcaption>Same rollers, larger eccentricity, 12 output pins held at both ends.</figcaption>
+      </figure>
+      <dl class="rc-specs">
+        <div><dt>Eccentricity</dt><dd>3,5 mm</dd></div>
+        <div><dt>Lobes / rollers</dt><dd>10 / 11 on Ø118</dd></div>
+        <div><dt>Eccentric bearing</dt><dd>SKF NJ 204 ECP</dd></div>
+        <div><dt>Output pins</dt><dd>12 × Ø4 on Ø64</dd></div>
+        <div><dt>Rollers per pin</dt><dd>2 × SKF 61903</dd></div>
+        <div><dt>Roller load</dt><dd>847 N, 1 695 N peak</dd></div>
+      </dl>
+    </div>
+    <div class="rc-metrics">
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Roller contact</span>
+        <span class="rc-metric-value">990 MPa</span>
+        <span class="rc-metric-status">✓ Limit 2 000 MPa</span>
+      </div>
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Pin contact</span>
+        <span class="rc-metric-value">1 043 MPa</span>
+        <span class="rc-metric-status">✓ Limit 1 800 MPa</span>
+      </div>
+      <div class="rc-metric is-warn">
+        <span class="rc-metric-label">Oil film λ</span>
+        <span class="rc-metric-value">0,8</span>
+        <span class="rc-metric-status">! Target above 1</span>
+      </div>
+      <div class="rc-metric is-ok">
+        <span class="rc-metric-label">Eccentric bearing life</span>
+        <span class="rc-metric-value">3 816 h</span>
+        <span class="rc-metric-status">✓ Target 500 h</span>
+      </div>
+    </div>
+    <p class="rc-analysis">
+      Ten times the torque at a tenth of the speed: the pressures keep their margin, but the film on the pins is thinner than the roughness. A finer grinding, Rq 0,1 µm, doubles λ to 1,6.
+    </p>
+  </article>
+</section>
+
+<hr class="neon-divider">
+
+<!-- ============================================================
+     DRAWINGS
+     ============================================================ -->
+<section class="results-block" id="results-drawing">
+  <p class="section-label">// Drawings</p>
+  <h2 class="block-title">Assembly Drawing</h2>
+  <p class="block-text">Pink markers explain the design choices. Click a line of the part list to find the part in 3D.</p>
+
+  <div class="drawing-viewer" data-style="blueprint" data-part-list="assembly">
+    <div class="drawing-toolbar">
+      <div class="drawing-group" role="group" aria-label="Drawing style">
+        <button type="button" class="drawing-button is-active" data-mode="blueprint" aria-pressed="true">Blueprint</button>
+        <button type="button" class="drawing-button" data-mode="paper" aria-pressed="false">Paper</button>
+      </div>
+      <div class="drawing-group" role="group" aria-label="Zoom">
+        <button type="button" class="drawing-button" data-zoom="out" aria-label="Zoom out">−</button>
+        <button type="button" class="drawing-button" data-zoom="fit">Fit</button>
+        <button type="button" class="drawing-button" data-zoom="in" aria-label="Zoom in">+</button>
+      </div>
+      <span class="drawing-hint">Click a pink marker · Ctrl + scroll to zoom</span>
+      <a class="drawing-button drawing-download" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Drawing_Assembly.pdf' | url }}" download>PDF</a>
+    </div>
+    <div class="drawing-stage">
+      <div class="drawing-viewport">
+        <div class="drawing-canvas">
+          <img class="drawing-image" src="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Drawing_Assembly.svg' | url }}"
+               alt="Assembly drawing of the two-stage cycloidal gearbox: section A-A, top view and part list" loading="lazy">
+          <button type="button" class="drawing-hotspot" style="--x: 96.1; --y: 68"
+                  data-title="Two eccentrics"
+                  data-text="e = 3,0 mm on the input shaft, 3,5 mm on the flask. Section A-A cuts through both, so the offsets read directly on the drawing."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 22.5; --y: 64.5"
+                  data-title="Roller stack"
+                  data-text="11 fixed pins, 3 SKF 61903 each: one roller on stage 1, two side by side on stage 2, which carries ten times the torque."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 109.5; --y: 74"
+                  data-title="Recessed eccentric bearings"
+                  data-text="Both eccentric bearings are pressed into their disc and sit 0,5 mm inside each face, so they never rub on their neighbours."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 60.6; --y: 60"
+                  data-title="Pins held at both ends"
+                  data-text="The 12 output pins of stage 2 sit in the output shaft and in the annular pin plate: each pin works as a beam on two supports, not as a cantilever."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 69.6; --y: 88.6"
+                  data-title="One output bearing"
+                  data-text="A single four-point contact bearing, SKF QJ 206, takes the radial load and the axial load in both directions."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 70; --y: 178.5"
+                  data-title="10 lobes, 11 rollers"
+                  data-text="One lobe fewer than rollers: each turn of the eccentric moves the disc back by one lobe, so 1:10 per stage. The top cover is left out to show the mechanism."></button>
+        </div>
+        <span class="drawing-scanner" aria-hidden="true"></span>
+      </div>
+      <aside class="drawing-popover" hidden aria-live="polite">
+        <button type="button" class="drawing-popover-close" aria-label="Close">×</button>
+        <p class="drawing-popover-title"></p>
+        <p class="drawing-popover-text"></p>
+        <button type="button" class="drawing-button drawing-popover-action" hidden></button>
+      </aside>
+    </div>
+  </div>
+
+  <h3 class="block-subtitle">Part Drawing · Cycloidal Disc, Stage 2</h3>
+
+  <div class="drawing-viewer" data-style="blueprint">
+    <div class="drawing-toolbar">
+      <div class="drawing-group" role="group" aria-label="Drawing style">
+        <button type="button" class="drawing-button is-active" data-mode="blueprint" aria-pressed="true">Blueprint</button>
+        <button type="button" class="drawing-button" data-mode="paper" aria-pressed="false">Paper</button>
+      </div>
+      <div class="drawing-group" role="group" aria-label="Zoom">
+        <button type="button" class="drawing-button" data-zoom="out" aria-label="Zoom out">−</button>
+        <button type="button" class="drawing-button" data-zoom="fit">Fit</button>
+        <button type="button" class="drawing-button" data-zoom="in" aria-label="Zoom in">+</button>
+      </div>
+      <span class="drawing-hint">Click a pink marker · Ctrl + scroll to zoom</span>
+      <a class="drawing-button drawing-download" href="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Drawing_Disc_Stage_2.pdf' | url }}" download>PDF</a>
+    </div>
+    <div class="drawing-stage">
+      <div class="drawing-viewport">
+        <div class="drawing-canvas">
+          <img class="drawing-image" src="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/assets/Drawing_Disc_Stage_2.svg' | url }}"
+               alt="Drawing of the stage 2 cycloidal disc, with its functional tolerancing" loading="lazy">
+          <button type="button" class="drawing-hotspot" style="--x: 203.8; --y: 130.9"
+                  data-title="Lobe profile"
+                  data-text="Profile within 0,05 mm of datum A, Ra 0,2: the lobes roll on the rollers at up to 990 MPa. The profile comes from the generator as a DXF file."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 188.9; --y: 120.9"
+                  data-title="Pin bores"
+                  data-text="12 × Ø11 H7 on Ø64, position 0,03 at maximum material: the 12 output pins share the torque only if every bore sits in place."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 340.5; --y: 120.9"
+                  data-title="Bearing seat"
+                  data-text="Ø47 M7 for the outer ring of the NJ 204, cylindricity 0,01. The load turns relative to the ring, so the seat is tight."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 340.5; --y: 42.5"
+                  data-title="Faces"
+                  data-text="15 ± 0,05 mm, faces parallel within 0,02 and square to the bore: the disc runs with only 0,5 mm of axial play on each side."></button>
+          <button type="button" class="drawing-hotspot" style="--x: 124.5; --y: 37.6"
+                  data-title="Material"
+                  data-text="16MnCr5 case-hardened to 58 to 62 HRC: a hard skin for the rolling contact, a tough core for the shocks."></button>
+        </div>
+        <span class="drawing-scanner" aria-hidden="true"></span>
+      </div>
+      <aside class="drawing-popover" hidden aria-live="polite">
+        <button type="button" class="drawing-popover-close" aria-label="Close">×</button>
+        <p class="drawing-popover-title"></p>
+        <p class="drawing-popover-text"></p>
+        <button type="button" class="drawing-button drawing-popover-action" hidden></button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div>
+    <div class="footer-name">Sam Bouchaud</div>
+    <div class="footer-sub">Robotics Engineer Student | Two Stage Cycloidal Reducer for Industrial Robot Joint</div>
+  </div>
+</footer>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+</script>
+<script src="{{ 'Projects/Projet_Cycloidal_Gearbox/Presentation/Animations_Presentation_Cycloidal_Gearbox.js' | url }}"></script>
+<script src="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/Stages_Cycloidal_Gearbox.js' | url }}"></script>
+<script src="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/Drawings_Cycloidal_Gearbox.js' | url }}"></script>
+<script type="module" src="{{ 'Projects/Projet_Cycloidal_Gearbox/Results/Viewer_Cycloidal_Gearbox.js' | url }}"></script>
+
+{% endblock %}
