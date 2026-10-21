@@ -1,0 +1,530 @@
+/* ============================================================
+   Extra_Results.css
+   Page de résultats — 4WS Simulator
+   Charger via Results.html
+   ============================================================
+   1.  Variables & fond
+   2.  Layout page
+   3.  Section niveau
+   4.  Result card
+   5.  Card header
+   6.  Body 60/40
+   7.  Graphes droite
+   8.  Toggle braquage
+   9.  Métriques
+   10. Analyse
+   11. Neon divider
+   12. Responsive
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABLES & FOND
+   ============================================================ */
+
+.md-sidebar { display: none; }
+.md-main__inner { max-width: 100%; margin: 0; }
+.md-content *, .md-content *::before, .md-content *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+*, *::before, *::after { cursor: none !important; }
+
+:root {
+  --r-bg:      #0a0714;
+  --r-bg2:     #0d0a1a;
+  --r-card:    rgba(20, 12, 40, 0.88);
+  --r-purple:  #aa00ff;
+  --r-pink:    #ff00cc;
+  --r-cyan:    #00e5cc;
+  --r-yellow:  #ffe566;
+  --r-red:     #E24B4A;
+  --r-white:   #f0e8ff;
+  --r-muted:   rgba(200, 170, 255, 0.45);
+  --r-border:  rgba(170, 0, 255, 0.2);
+  --r-mono:    'JetBrains Mono', 'Courier New', monospace;
+  --r-serif:   'Pacifico', cursive;
+  --r-sans:    'Sora', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body { background: var(--r-bg); overflow-x: hidden; cursor: none; }
+
+.md-content {
+  font-family: var(--r-sans);
+  font-weight: 300;
+  color: var(--r-white);
+}
+
+
+/* ============================================================
+   2. LAYOUT PAGE
+   ============================================================ */
+
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--r-pink);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 2147483647;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--r-pink), 0 0 20px var(--r-pink);
+}
+
+.cursor-ring {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(255, 0, 204, 0.5);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 2147483646;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, width 0.2s, height 0.2s;
+}
+
+.bg-grid { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-grid canvas { width: 100%; height: 100%; opacity: 0.35; }
+
+section { position: relative; z-index: 1; }
+
+
+/* ============================================================
+   3. SECTION NIVEAU
+   ============================================================ */
+
+.result-section {
+  padding: 5rem 8vw 3rem;
+}
+
+.rs-label {
+  font-family: var(--r-mono);
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--r-purple);
+  opacity: 0.8;
+  margin-bottom: 0.6rem;
+}
+
+.rs-title {
+  font-family: var(--r-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  color: var(--r-cyan);
+  text-shadow: 0 0 8px var(--r-cyan), 0 0 25px rgba(0, 229, 204, 0.3);
+  margin-bottom: 0.4rem;
+}
+
+.rs-sub {
+  font-size: 0.82rem;
+  color: var(--r-muted);
+  font-family: var(--r-mono);
+  margin-bottom: 3rem;
+  letter-spacing: 0.5px;
+}
+
+
+/* ============================================================
+   4. RESULT CARD
+   ============================================================ */
+
+.result-card {
+  background: var(--r-card);
+  border: 0.5px solid var(--r-border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   0.55s ease,
+    transform 0.55s ease,
+    border-color 0.3s,
+    box-shadow   0.3s;
+}
+
+.result-card.visible { opacity: 1; transform: none; }
+
+/* Barre néon haut */
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--r-purple), var(--r-pink));
+  transition: height 0.25s ease;
+  z-index: 1;
+}
+
+.result-card:hover {
+  border-color: rgba(170, 0, 255, 0.38);
+  box-shadow: 0 0 32px rgba(170, 0, 255, 0.07);
+}
+
+/* Variante "meilleur résultat" */
+.result-card.is-best { border-color: rgba(0, 229, 204, 0.35); }
+.result-card.is-best::before {
+  background: linear-gradient(90deg, var(--r-cyan), var(--r-purple));
+}
+
+
+/* ============================================================
+   5. CARD HEADER
+   ============================================================ */
+
+.rc-header {
+  padding: 1rem 1.4rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-bottom: 0.5px solid var(--r-border);
+  flex-wrap: wrap;
+}
+
+.rc-header-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rc-title {
+  font-family: var(--r-serif);
+  font-size: 1.15rem;
+  color: var(--r-yellow);
+  text-shadow: 0 0 8px rgba(255, 229, 102, 0.4);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rc-test-id {
+  font-family: var(--r-mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--r-purple);
+  opacity: 0.6;
+}
+
+.rc-badge {
+  font-family: var(--r-mono);
+  font-size: 0.63rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.rc-badge.badge-best {
+  background: rgba(0, 229, 204, 0.1);
+  color: var(--r-cyan);
+  border: 0.5px solid rgba(0, 229, 204, 0.4);
+}
+
+.rc-badge.badge-warn {
+  background: rgba(226, 75, 74, 0.1);
+  color: var(--r-red);
+  border: 0.5px solid rgba(226, 75, 74, 0.35);
+}
+
+
+/* ============================================================
+   6. BODY — SPLIT 60 / 40
+   ============================================================ */
+
+.rc-body {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  min-height: 0;
+}
+
+/* — Colonne trajectoire (gauche) — */
+.rc-traj {
+  padding: 1rem;
+  border-right: 0.5px solid var(--r-border);
+}
+
+.rc-traj-inner {
+  background: var(--r-bg2);
+  border: 0.5px solid var(--r-border);
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 7 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rc-traj-inner svg,
+.rc-traj-inner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* ============================================================
+   7. GRAPHES DROITE
+   ============================================================ */
+
+.rc-graphs {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rc-graph {
+  background: var(--r-bg2);
+  border: 0.5px solid var(--r-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rc-graph-label {
+  font-family: var(--r-mono);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--r-cyan);
+  opacity: 0.65;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.rc-graph-label.label-pink { color: var(--r-pink); }
+
+.rc-graph svg {
+  width: 100%;
+  flex: 1;
+  display: block;
+  min-height: 0;
+}
+
+/* — Graphe optionnel (braquage) — */
+.rc-graph--optional {
+  overflow: hidden;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  border-color: transparent;
+  flex: 0;
+  transition:
+    max-height   0.4s ease,
+    opacity      0.35s ease,
+    padding      0.35s ease,
+    border-color 0.35s ease,
+    flex         0.4s ease;
+}
+
+.rc-graph--optional.open {
+  max-height: 300px;
+  opacity: 1;
+  padding: 8px 10px;
+  border-color: rgba(255, 0, 204, 0.2);
+  flex: 1;
+}
+
+
+/* ============================================================
+   8. TOGGLE BOUTON BRAQUAGE
+   ============================================================ */
+
+.rc-toggle {
+  font-family: var(--r-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0.5px solid rgba(255, 0, 204, 0.3);
+  border-radius: 6px;
+  color: rgba(255, 0, 204, 0.55);
+  padding: 4px 12px;
+  cursor: pointer !important;
+  align-self: flex-start;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.rc-toggle:hover {
+  border-color: var(--r-pink);
+  color: var(--r-pink);
+  background: rgba(255, 0, 204, 0.05);
+}
+
+.rc-toggle.active {
+  border-color: var(--r-pink);
+  color: var(--r-pink);
+  background: rgba(255, 0, 204, 0.08);
+}
+
+.rc-toggle::before { content: '+ '; }
+.rc-toggle.active::before { content: '− '; }
+
+
+/* ============================================================
+   9. MÉTRIQUES
+   ============================================================ */
+
+.rc-metrics {
+  display: flex;
+  gap: 8px;
+  padding: 0.75rem 1.4rem;
+  border-top: 0.5px solid var(--r-border);
+  flex-wrap: wrap;
+}
+
+.rc-metric {
+  background: rgba(10, 7, 20, 0.7);
+  border: 0.5px solid var(--r-border);
+  border-radius: 7px;
+  padding: 6px 16px;
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+}
+
+.rc-metric-label {
+  font-family: var(--r-mono);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--r-muted);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.rc-metric-value {
+  font-family: var(--r-mono);
+  font-size: 1.1rem;
+  display: block;
+  line-height: 1;
+}
+
+.rc-metric-value.good { color: var(--r-cyan); }
+.rc-metric-value.bad  { color: var(--r-red);  }
+.rc-metric-value.ok   { color: var(--r-yellow); }
+
+
+/* ============================================================
+   10. ANALYSE TEXTE
+   ============================================================ */
+
+.rc-analysis {
+  padding: 0.8rem 1.4rem 1rem 2rem;
+  border-top: 0.5px solid var(--r-border);
+  font-size: 0.8rem;
+  color: var(--r-muted);
+  line-height: 1.85;
+  font-family: var(--r-mono);
+  position: relative;
+}
+
+.rc-analysis::before {
+  content: '';
+  position: absolute;
+  left: 1.15rem;
+  top: 0.8rem;
+  bottom: 1rem;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--r-purple), transparent);
+  border-radius: 2px;
+}
+
+
+/* ============================================================
+   11. INTRO BLOCK
+   ============================================================ */
+
+.intro-block {
+  max-width: 72ch;
+}
+
+.intro-body {
+  border-left: 2px solid rgba(170, 0, 255, 0.35);
+  padding-left: 1.25rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.intro-body p {
+  font-family: var(--r-mono);
+  font-size: 0.82rem;
+  color: var(--r-muted);
+  line-height: 1.85;
+  margin: 0;
+}
+
+.intro-body strong {
+  color: var(--r-cyan);
+  font-weight: 500;
+}
+
+.intro-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 0.4rem;
+}
+
+.intro-pill {
+  font-family: var(--r-mono);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(170, 0, 255, 0.75);
+  border: 0.5px solid rgba(170, 0, 255, 0.3);
+  border-radius: 20px;
+  padding: 3px 12px;
+  background: rgba(170, 0, 255, 0.06);
+}
+
+
+/* ============================================================
+   12. NEON DIVIDER
+   ============================================================ */
+
+.neon-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--r-pink),
+    var(--r-purple),
+    var(--r-pink),
+    transparent
+  );
+  box-shadow: 0 0 14px rgba(255, 0, 204, 0.35);
+  border: none;
+  margin: 0;
+}
+
+
+/* ============================================================
+   12. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .rc-body {
+    grid-template-columns: 1fr;
+  }
+  .rc-traj {
+    border-right: none;
+    border-bottom: 0.5px solid var(--r-border);
+  }
+  .rc-traj-inner {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 640px) {
+  .result-section { padding: 3rem 5vw 2rem; }
+  .rc-metrics { gap: 6px; }
+  .rc-metric { min-width: 60px; padding: 5px 10px; }
+}
+
+.md-footer { display: none; }
