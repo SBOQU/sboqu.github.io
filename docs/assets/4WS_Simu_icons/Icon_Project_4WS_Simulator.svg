@@ -1,0 +1,83 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-dot" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <path id="ref-path" d="M 10,90 C 40,90 50,30 80,30 C 110,30 120,80 150,70 C 170,63 180,45 190,40" fill="none"/>
+    <path id="track-path" d="M 10,100 C 40,98 50,42 80,36 C 110,32 120,78 150,70 C 170,63 180,45 190,40" fill="none"/>
+
+    <clipPath id="clip-ref">
+      <rect x="0" y="0" width="0" height="120">
+        <animate attributeName="width" from="0" to="200" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1"/>
+      </rect>
+    </clipPath>
+    <clipPath id="clip-track">
+      <rect x="0" y="0" width="0" height="120">
+        <animate attributeName="width" from="0" to="200" dur="2.5s" begin="0.3s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="8" y1="10" x2="8" y2="108" stroke="rgba(200,170,255,0.2)" stroke-width="0.5"/>
+  <line x1="8" y1="108" x2="196" y2="108" stroke="rgba(200,170,255,0.2)" stroke-width="0.5"/>
+
+  <!-- Axis labels -->
+  <text x="4" y="60" font-size="7" fill="rgba(200,170,255,0.35)" text-anchor="middle" font-family="monospace">Y</text>
+  <text x="100" y="116" font-size="7" fill="rgba(200,170,255,0.35)" text-anchor="middle" font-family="monospace">s</text>
+
+  <!-- Error lines -->
+  <g opacity="0.4">
+    <line x1="50" y1="30" x2="50" y2="42" stroke="#ffe566" stroke-width="0.5" stroke-dasharray="1.5,1.5">
+      <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="100" y1="55" x2="100" y2="57" stroke="#ffe566" stroke-width="0.5" stroke-dasharray="1.5,1.5">
+      <animate attributeName="opacity" values="0;0.3;1;0.3;0" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="130" y1="74" x2="130" y2="74" stroke="#ffe566" stroke-width="0.5" stroke-dasharray="1.5,1.5">
+      <animate attributeName="opacity" values="0;0;0.6;0" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <text x="53" y="37" font-size="6" fill="#ffe566" font-family="monospace" font-style="italic" opacity="0.8">y</text>
+  </g>
+
+  <!-- Reference path (purple) -->
+  <use href="#ref-path" stroke="#aa00ff" stroke-width="1.5" fill="none"
+       filter="url(#glow-purple)" clip-path="url(#clip-ref)"/>
+  <use href="#ref-path" stroke="rgba(170,0,255,0.3)" stroke-width="0.5" fill="none"
+       stroke-dasharray="3,3"/>
+
+  <!-- Tracked path (cyan) -->
+  <use href="#track-path" stroke="#00d2ff" stroke-width="1.5" fill="none"
+       filter="url(#glow-cyan)" clip-path="url(#clip-track)"/>
+
+  <!-- Moving dot on reference -->
+  <circle r="2.5" fill="#aa00ff" filter="url(#glow-dot)">
+    <animateMotion dur="2.5s" repeatCount="indefinite" rotate="auto">
+      <mpath href="#ref-path"/>
+    </animateMotion>
+  </circle>
+
+  <!-- Moving dot on tracked path -->
+  <circle r="2.5" fill="#00d2ff" filter="url(#glow-dot)">
+    <animateMotion dur="2.5s" begin="0.3s" repeatCount="indefinite" rotate="auto">
+      <mpath href="#track-path"/>
+    </animateMotion>
+  </circle>
+
+  <!-- Legend -->
+  <line x1="12" y1="16" x2="24" y2="16" stroke="#aa00ff" stroke-width="1.2" filter="url(#glow-purple)"/>
+  <text x="27" y="19" font-size="5.5" fill="rgba(200,170,255,0.7)" font-family="monospace">Reference</text>
+
+  <line x1="12" y1="24" x2="24" y2="24" stroke="#00d2ff" stroke-width="1.2" filter="url(#glow-cyan)"/>
+  <text x="27" y="27" font-size="5.5" fill="rgba(200,170,255,0.7)" font-family="monospace">Tracked</text>
+</svg>

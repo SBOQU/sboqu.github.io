@@ -1,0 +1,65 @@
+<svg viewBox="0 0 80 80" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Grille de fond -->
+  <g stroke="#aa00ff" stroke-width="0.3" opacity="0.35" stroke-dasharray="1 1">
+    <line x1="10" y1="60" x2="75" y2="60"/>
+    <line x1="10" y1="45" x2="75" y2="45"/>
+    <line x1="10" y1="30" x2="75" y2="30"/>
+    <line x1="10" y1="15" x2="75" y2="15"/>
+    <line x1="25" y1="70" x2="25" y2="10"/>
+    <line x1="40" y1="70" x2="40" y2="10"/>
+    <line x1="55" y1="70" x2="55" y2="10"/>
+    <line x1="70" y1="70" x2="70" y2="10"/>
+  </g>
+  
+  <!-- Axes principaux -->
+  <path d="M10,70 L75,70 M10,70 L10,10" fill="none" stroke="#aa00ff" stroke-width="1.2" opacity="0.8"/>
+  <text x="68" y="77" font-size="4" fill="#aa00ff" font-family="monospace" opacity="0.8">log(ρ)</text>
+  <text x="2" y="8" font-size="4" fill="#aa00ff" font-family="monospace" opacity="0.8">log(E)</text>
+
+  <!-- Enveloppes des familles de matériaux -->
+  <g fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.5">
+    <ellipse cx="25" cy="55" rx="10" ry="12" stroke-dasharray="2 2"/>
+    <ellipse cx="50" cy="45" rx="12" ry="8" stroke-dasharray="2 2"/>
+  </g>
+  
+  <!-- Matériaux filtrés (sous le seuil) -->
+  <g fill="#aa00ff" opacity="0.4">
+    <circle cx="22" cy="52" r="1.5"/>
+    <circle cx="28" cy="60" r="1"/>
+    <circle cx="25" cy="48" r="1.5"/>
+    <circle cx="45" cy="45" r="2"/>
+    <circle cx="52" cy="42" r="1.5"/>
+    <circle cx="55" cy="48" r="1"/>
+  </g>
+
+  <!-- Droite de performance FIXE, limitée strictement à l'intérieur des axes -->
+  <line x1="10" y1="50" x2="50" y2="10" stroke="#ffe566" stroke-width="1.2" opacity="0.9"/>
+  
+  <!-- Flèche d'optimisation avec va-et-vient RÉDUIT sur la droite -->
+  <g>
+    <!-- L'amplitude est réduite à des valeurs qui maintiennent la flèche dans le cadre -->
+    <animateTransform attributeName="transform" type="translate" values="-10,10; 10,-10; -10,10" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+    
+    <line x1="30" y1="30" x2="36" y2="24" stroke="#ffe566" stroke-width="1" stroke-dasharray="1 1"/>
+    <polygon points="36,24 32,24 36,28" fill="#ffe566" opacity="0.9"/>
+  </g>
+
+  <!-- Cluster optimal -->
+  <ellipse cx="55" cy="18" rx="9" ry="6" fill="none" stroke="#ff00cc" stroke-width="1.2" opacity="0.9">
+    <animate attributeName="stroke-dasharray" values="0,30; 30,0" dur="2s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Matériaux sélectionnés (candidats finaux) -->
+  <g fill="#ff00cc">
+    <circle cx="52" cy="16" r="1.5">
+      <animate attributeName="opacity" values="0.3; 1; 0.3" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+    </circle>
+    <circle cx="56" cy="20" r="2">
+      <animate attributeName="opacity" values="0.3; 1; 0.3" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" begin="0.5s"/>
+    </circle>
+    <circle cx="58" cy="15" r="1.2"/>
+    <circle cx="51" cy="20" r="1"/>
+  </g>
+
+</svg>

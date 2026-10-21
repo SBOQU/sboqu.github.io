@@ -1,0 +1,52 @@
+<svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Reference arc -->
+  <path d="M5,40 Q30,5 55,40"
+        fill="none" stroke="#ff00cc" stroke-width="1.5" opacity="0.55"/>
+
+  <!-- Osculating circle -->
+  <circle fill="none" stroke="#ff00cc" stroke-width="1" opacity="0.6">
+    <animate attributeName="cx" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="21.3;24.9;23.5;24.4;26.8;30;33.2;35.6;36.5;35.1;38.7;35.1;36.5;35.6;33.2;30;26.8;24.4;23.5;24.9;21.3"/>
+    <animate attributeName="cy" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="51.6;47;39;33.1;29.6;28.5;29.6;33.1;39;47;51.6;47;39;33.1;29.6;28.5;29.6;33.1;39;47;51.6"/>
+    <animate attributeName="r" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="20;20;13.3;9;6.7;6;6.7;9;13.3;20;20;20;13.3;9;6.7;6;6.7;9;13.3;20;20"/>
+  </circle>
+
+  <!-- Radius line 1/c(s) — dashed yellow -->
+  <line stroke="#ffe566" stroke-width="1" stroke-dasharray="2 2" opacity="0.8">
+    <animate attributeName="x1" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="5;10;15;20;25;30;35;40;45;50;55;50;45;40;35;30;25;20;15;10;5"/>
+    <animate attributeName="y1" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="40;33.7;28.8;25.3;23.2;22.5;23.2;25.3;28.8;33.7;40;33.7;28.8;25.3;23.2;22.5;23.2;25.3;28.8;33.7;40"/>
+    <animate attributeName="x2" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="21.3;24.9;23.5;24.4;26.8;30;33.2;35.6;36.5;35.1;38.7;35.1;36.5;35.6;33.2;30;26.8;24.4;23.5;24.9;21.3"/>
+    <animate attributeName="y2" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      values="51.6;47;39;33.1;29.6;28.5;29.6;33.1;39;47;51.6;47;39;33.1;29.6;28.5;29.6;33.1;39;47;51.6"/>
+  </line>
+
+  <!-- Moving dot — uses animateMotion for exact path following -->
+  <circle r="3.5" fill="#ff00cc" opacity="0.95">
+    <animateMotion dur="5s" repeatCount="indefinite" calcMode="linear"
+      keyPoints="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1;0.9;0.8;0.7;0.6;0.5;0.4;0.3;0.2;0.1;0"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      path="M5,40 Q30,5 55,40"/>
+  </circle>
+
+  <!-- Ghost glow -->
+  <circle r="8" fill="#ff00cc" opacity="0.06">
+    <animateMotion dur="5s" repeatCount="indefinite" calcMode="linear"
+      keyPoints="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1;0.9;0.8;0.7;0.6;0.5;0.4;0.3;0.2;0.1;0"
+      keyTimes="0;0.05;0.1;0.15;0.2;0.25;0.3;0.35;0.4;0.45;0.5;0.55;0.6;0.65;0.7;0.75;0.8;0.85;0.9;0.95;1"
+      path="M5,40 Q30,5 55,40"/>
+  </circle>
+
+</svg>

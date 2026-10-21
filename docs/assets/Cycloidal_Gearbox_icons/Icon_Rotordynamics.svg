@@ -1,0 +1,25 @@
+<svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5" y1="30" x2="55" y2="30" stroke="#aa00ff" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+
+  <rect x="5" y="27" width="2" height="6" fill="#aa00ff" opacity="0.8"/>
+  <rect x="53" y="27" width="2" height="6" fill="#aa00ff" opacity="0.8"/>
+
+  <path d="M6,30 Q30,30 54,30" fill="none" stroke="#ff00cc" stroke-width="1.5" opacity="0.8">
+    <animate attributeName="d"
+             values="M6,30 Q30,12 54,30; M6,30 Q30,48 54,30; M6,30 Q30,12 54,30"
+             dur="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+  </path>
+
+  <circle cx="18" cy="30" r="1.5" fill="#ff00cc">
+    <animate attributeName="cy" values="21; 39; 21" dur="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="42" cy="30" r="1.5" fill="#ff00cc">
+    <animate attributeName="cy" values="21; 39; 21" dur="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+  </circle>
+
+  <circle cx="30" cy="30" r="3.5" fill="#ffe566">
+    <animate attributeName="cy" values="12; 48; 12" dur="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+  </circle>
+
+  <ellipse cx="30" cy="30" rx="2" ry="18" fill="none" stroke="#ffe566" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
+</svg>

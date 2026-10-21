@@ -1,0 +1,19 @@
+<svg viewBox="0 0 60 60" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4.00,42.00 L6.00,41.74 L8.00,41.45 L10.00,43.91 L12.00,42.10 L14.00,40.73 L16.00,41.76 L18.00,41.11 L20.00,41.28 L22.00,42.92 L24.00,42.43 L26.00,42.63 L28.00,43.22 L30.00,40.33 L32.00,42.11 L34.00,41.67 L36.00,41.43 L38.00,44.01 L40.00,42.69 L42.00,41.42 L44.00,42.76 L46.00,40.47 L48.00,41.33 L50.00,43.47 L52.00,41.78 L54.00,41.37 L56.00,43.72 L56.00,56.00 L4.00,56.00 Z" fill="#aa00ff" fill-opacity="0.12" stroke="#aa00ff" stroke-width="1" stroke-opacity="0.8"/>
+  <g><path d="M4.00,26.91 L6.00,25.37 L8.00,27.30 L10.00,25.31 L12.00,24.58 L14.00,27.11 L16.00,25.62 L18.00,26.04 L20.00,27.67 L22.00,25.61 L24.00,24.44 L26.00,26.15 L28.00,24.33 L30.00,26.91 L32.00,27.84 L34.00,24.67 L36.00,26.99 L38.00,26.77 L40.00,24.52 L42.00,26.64 L44.00,26.14 L46.00,24.87 L48.00,27.43 L50.00,25.24 L52.00,24.11 L54.00,26.02 L56.00,24.64 L56.00,2.00 L4.00,2.00 Z" fill="#aa00ff" fill-opacity="0.12" stroke="#aa00ff" stroke-width="1" stroke-opacity="0.8"/>
+  <animateTransform attributeName="transform" type="translate" values="0,0; 0,11.5; 0,11.5; 0,0; 0,0" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/></g>
+  <rect x="4" y="30" width="52" height="8" fill="#00e5cc" opacity="0.14">
+    <animate attributeName="height" values="8;0.8;0.8;8;8" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="30;36.6;36.6;30;30" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <line x1="6" y1="34" x2="54" y2="34" stroke="#00e5cc" stroke-width="1.1" opacity="0.9">
+    <animate attributeName="y1" values="34;37;37;34;34" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="34;37;37;34;34" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0.15;0.15;0.9;0.9" keyTimes="0;0.35;0.5;0.85;1" dur="5s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="14" cy="40.5" r="2.4" fill="#ff00cc"><animate attributeName="opacity" values="0;0;0.95;0.3;0.95;0;0" keyTimes="0;0.34;0.38;0.42;0.46;0.52;1" dur="5s" repeatCount="indefinite"/></circle>
+  <circle cx="30" cy="40.2" r="2.8" fill="#ff00cc"><animate attributeName="opacity" values="0;0;0.3;0.95;0.4;0;0" keyTimes="0;0.34;0.38;0.43;0.47;0.52;1" dur="5s" repeatCount="indefinite"/></circle>
+  <circle cx="46" cy="40.4" r="2.5" fill="#ff00cc"><animate attributeName="opacity" values="0;0;0.9;0.35;0.9;0;0" keyTimes="0;0.34;0.39;0.44;0.48;0.52;1" dur="5s" repeatCount="indefinite"/></circle>
+  <text x="30" y="53" font-family="monospace" font-size="6" text-anchor="middle" fill="#00e5cc" font-weight="bold">λ&gt;4<animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;0.25;0.33;0.55;0.75;1" dur="5s" repeatCount="indefinite"/></text>
+  <text x="30" y="53" font-family="monospace" font-size="6" text-anchor="middle" fill="#ff00cc" font-weight="bold">λ&lt;1<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.35;0.52;0.62;1" dur="5s" repeatCount="indefinite"/></text>
+</svg>

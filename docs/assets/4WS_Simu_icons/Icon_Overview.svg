@@ -1,0 +1,80 @@
+<svg viewBox="0 0 80 80" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Sheet outline + folded corner -->
+  <path d="M6,6 L6,74 L74,74 L74,22 L58,6 Z" fill="none" stroke="#aa00ff" stroke-width="1" opacity="0.6"/>
+  <path d="M58,6 L58,22 L74,22" fill="none" stroke="#aa00ff" stroke-width="1" opacity="0.45"/>
+  <polygon points="58,6 74,22 58,22" fill="#aa00ff" opacity="0.09"/>
+
+  <!-- Title bar -->
+  <line x1="6" y1="16" x2="74" y2="16" stroke="#aa00ff" stroke-width="0.7" opacity="0.4"/>
+  <line x1="12" y1="11" x2="38" y2="11" stroke="#aa00ff" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- Grid -->
+  <line x1="6"  y1="31" x2="74" y2="31" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+  <line x1="6"  y1="46" x2="74" y2="46" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+  <line x1="6"  y1="61" x2="74" y2="61" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+  <line x1="22" y1="16" x2="22" y2="74" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+  <line x1="38" y1="16" x2="38" y2="74" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+  <line x1="54" y1="16" x2="54" y2="74" stroke="#aa00ff" stroke-width="0.25" opacity="0.14"/>
+
+  <!-- Central abstract shape -->
+  <circle cx="40" cy="45" r="11" fill="none" stroke="#aa00ff" stroke-width="1" opacity="0.5"/>
+  <line x1="40" y1="34" x2="40" y2="56" stroke="#aa00ff" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.28"/>
+  <line x1="29" y1="45" x2="51" y2="45" stroke="#aa00ff" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.28"/>
+
+  <!-- ANNOTATION 1 — top-left -->
+  <circle cx="33" cy="38" r="1.6" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.8"/>
+  <path d="M33,38 L20,26 L10,26" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="33" cy="38" r="4" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0.25;0;0;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="33" cy="38" r="1.6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0.9;0;0;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ANNOTATION 2 — top-right -->
+  <circle cx="47" cy="38" r="1.6" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.8"/>
+  <path d="M47,38 L59,26 L69,26" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="47" cy="38" r="4" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.25;0;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="47" cy="38" r="1.6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.9;0;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ANNOTATION 3 — right -->
+  <circle cx="51" cy="45" r="1.6" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.8"/>
+  <path d="M51,45 L63,38 L70,38" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="51" cy="45" r="4" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0.25;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="51" cy="45" r="1.6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0.9;0;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ANNOTATION 4 — bottom-left -->
+  <circle cx="33" cy="52" r="1.6" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.8"/>
+  <path d="M33,52 L21,63 L11,63" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="33" cy="52" r="4" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0;0.25;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="33" cy="52" r="1.6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0;0.9;0;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ANNOTATION 5 — bottom -->
+  <circle cx="40" cy="56" r="1.6" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.8"/>
+  <path d="M40,56 L30,66 L19,66" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="40" cy="56" r="4" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0;0;0.25;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="40" cy="56" r="1.6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;0;0;0.9;0;0;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Bottom info bar -->
+  <line x1="6"  y1="69" x2="74" y2="69" stroke="#aa00ff" stroke-width="0.6" opacity="0.3"/>
+  <line x1="10" y1="71.5" x2="26" y2="71.5" stroke="#aa00ff" stroke-width="0.7" opacity="0.3"/>
+  <line x1="36" y1="71.5" x2="52" y2="71.5" stroke="#aa00ff" stroke-width="0.7" opacity="0.2"/>
+
+</svg>

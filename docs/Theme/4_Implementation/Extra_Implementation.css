@@ -1,0 +1,413 @@
+/* ============================================================================
+   IMPLEMENTATION — STYLE MODULAIRE
+   ============================================================================
+   Usage : charger via Implementation.html (HTML_Template)
+   Autonome — ne dépend d'aucun autre CSS du projet
+   ============================================================================
+   1. Variables & fond
+   2. Layout — sidebar masquée / contenu pleine largeur
+   3. Navigation — sidebar
+   4. Typography — titres
+   5. Liens
+   6. Tableaux
+   7. Code inline & blocs natifs
+   8. Admonition Scilab (copie autonome)
+   9. Bouton téléchargement
+   10. Toast copié
+   11. Scrollbar
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. VARIABLES & FOND
+   ============================================================================ */
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0d0a1a;
+}
+
+/* Layout — laisser MkDocs gérer, juste cacher la TOC droite */
+.md-sidebar--secondary {
+  display: none !important;
+}
+
+:root {
+  --impl-purple:  #aa00ff;
+  --impl-pink:    #ff00cc;
+  --impl-cyan:    #00d2ff;
+  --impl-yellow:  #ffe566;
+  --impl-muted:   rgba(200, 170, 255, 0.55);
+
+  --md-admonition-icon--python: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.5 6.5 9 11l-4.5 4.5L6 17l6-6-6-6zM12 17h8v1.8h-8z"/></svg>');
+  --md-admonition-icon--scilab: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 3a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H3v2h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h2v-2H8v-5a2 2 0 0 0-2-2 2 2 0 0 0 2-2V5h2V3zm8 0a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1v2h-1a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2v-2h2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5h-2V3z"/></svg>');
+}
+
+
+/* ============================================================================
+   2. LAYOUT
+   ============================================================================ */
+
+.md-sidebar--secondary {
+  display: none !important;
+}
+
+/* ============================================================================
+   3. NAVIGATION — SIDEBAR
+   ============================================================================ */
+
+.md-nav__item--active > .md-nav__link {
+  color: var(--impl-yellow) !important;
+  padding-left: 0.6rem !important;
+}
+
+.md-nav__link--active,
+.md-nav__link[aria-current="page"] {
+  color: var(--impl-yellow) !important;
+  font-weight: 600 !important;
+  padding-left: 0.6rem !important;
+}
+
+.md-nav__link:hover {
+  color: var(--impl-yellow) !important;
+}
+
+.md-nav__title {
+  color: rgba(200, 150, 255, 0.5) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+
+
+/* ============================================================================
+   4. TYPOGRAPHY — TITRES
+   ============================================================================ */
+
+.md-content .md-typeset h1 {
+  font-family: "Pacifico", cursive !important;
+  font-weight: 400 !important;
+  font-size: 2.2rem;
+  color: var(--impl-yellow) !important;
+  text-shadow:
+    0 0 12px rgba(255, 229, 102, 0.8),
+    0 0 30px rgba(255, 204, 0, 0.4),
+    0 0 60px rgba(255, 153, 0, 0.2) !important;
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(to right, #aa00ff, #ff00cc, transparent) 1;
+}
+
+.md-content .md-typeset h2 {
+  color: #ffd166 !important;
+  font-weight: 500;
+  font-size: 1.3rem;
+  padding-left: 0.8rem;
+  margin-top: 2.5rem;
+  border-left: 2px solid rgba(170, 0, 255, 0.5);
+}
+
+.md-content .md-typeset h3 {
+  color: #00e5cc !important;
+  font-weight: 500;
+  font-size: 1.05rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid rgba(0, 229, 204, 0.4);
+}
+
+.md-content .md-typeset h4 {
+  color: #cc88ff !important;
+  font-weight: 500;
+}
+
+/* Paragraphes d'intro — légèrement atténués */
+.md-content .md-typeset p {
+  color: var(--impl-muted);
+  line-height: 1.8;
+}
+
+
+/* ============================================================================
+   5. LIENS
+   ============================================================================ */
+
+.md-content .md-typeset a {
+  color: #00e5cc !important;
+}
+
+.md-content .md-typeset a:hover {
+  color: #ff00cc !important;
+}
+
+
+/* ============================================================================
+   6. TABLEAUX
+   ============================================================================ */
+
+.md-content .md-typeset table {
+  border: 0.5px solid rgba(170, 0, 255, 0.2) !important;
+}
+
+.md-content .md-typeset table th {
+  background: rgba(0, 229, 204, 0.07) !important;
+  color: #00e5cc !important;
+  border-bottom: 1px solid rgba(0, 229, 204, 0.25) !important;
+}
+
+.md-content .md-typeset table tr:hover {
+  background: rgba(170, 0, 255, 0.04) !important;
+}
+
+
+/* ============================================================================
+   7. CODE INLINE & BLOCS NATIFS
+   ============================================================================ */
+
+.md-content .md-typeset code {
+  background: rgba(255, 229, 102, 0.07) !important;
+  color: var(--impl-yellow) !important;
+  border: 0.5px solid rgba(255, 229, 102, 0.2);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+.md-content .md-typeset pre {
+  background: rgba(10, 5, 25, 0.8) !important;
+  border: 0.5px solid rgba(170, 0, 255, 0.25) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 20px rgba(170, 0, 255, 0.06) !important;
+}
+
+.md-content .md-typeset pre > code {
+  background: transparent !important;
+  border: none !important;
+  color: #e0d0ff !important;
+}
+
+.md-content .md-typeset .highlight {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+
+/* ============================================================================
+   8. ADMONITION SCILAB (autonome)
+   ============================================================================ */
+
+.md-typeset .admonition.scilab,
+.md-typeset details.scilab {
+  background: rgba(0, 210, 255, 0.04) !important;
+  border: 1px solid rgba(0, 210, 255, 0.15) !important;
+  border-top: 2px solid var(--impl-cyan) !important;
+  box-shadow: 0 -2px 14px rgba(0, 210, 255, 0.22) !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  margin: 1.5rem 0 !important;
+}
+
+.md-typeset .scilab > .admonition-title,
+.md-typeset .scilab > summary {
+  background: rgba(0, 210, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 210, 255, 0.15) !important;
+  color: var(--impl-cyan) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.85rem !important;
+}
+
+.md-typeset .scilab > .admonition-title::before,
+.md-typeset .scilab > summary::before {
+  background-color: var(--impl-cyan) !important;
+  -webkit-mask-image: var(--md-admonition-icon--scilab);
+          mask-image: var(--md-admonition-icon--scilab);
+}
+
+.md-typeset .scilab pre {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1rem 1.5rem !important;
+}
+
+.md-typeset .scilab.no-title > .admonition-title {
+  display: none !important;
+}
+
+/* Highlighting Scilab */
+.md-typeset .scilab .highlight .c,
+.md-typeset .scilab .highlight .c1 { color: #7755aa !important; font-style: italic; }
+.md-typeset .scilab .highlight .k  { color: var(--impl-pink) !important; font-weight: 600; }
+.md-typeset .scilab .highlight .mi,
+.md-typeset .scilab .highlight .mf { color: var(--impl-yellow) !important; }
+.md-typeset .scilab .highlight .nf,
+.md-typeset .scilab .highlight .nb { color: #00e5cc !important; }
+.md-typeset .scilab .highlight .o  { color: #cc88ff !important; }
+.md-typeset .scilab .highlight .n  { color: #e0d0ff !important; }
+
+
+/* ============================================================================
+   9. BOUTON TÉLÉCHARGEMENT
+   ============================================================================ */
+
+/* Bouton généré par le JS — injecté dans le header de l'admonition */
+.impl-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 210, 255, 0.08);
+  border: 0.5px solid rgba(0, 210, 255, 0.35);
+  border-radius: 5px;
+  padding: 3px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--impl-cyan);
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.impl-dl-btn:hover {
+  background: rgba(0, 210, 255, 0.16) !important;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.3);
+  color: #fff !important;
+}
+
+.impl-dl-btn.clicked {
+  background: rgba(0, 210, 255, 0.25) !important;
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+  color: #fff !important;
+}
+
+/* Repositionne le titre de l'admonition pour accueillir le bouton */
+.md-typeset .scilab > .admonition-title,
+.md-typeset .scilab > summary {
+  display: flex !important;
+  align-items: center !important;
+  padding-right: 1rem !important;
+}
+
+
+/* ============================================================================
+   10. TOAST "COPIÉ"
+   ============================================================================ */
+
+.impl-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(13, 10, 26, 0.95);
+  border: 0.5px solid rgba(0, 210, 255, 0.4);
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--impl-cyan);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.impl-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================================
+   11. SCROLLBAR
+   ============================================================================ */
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0a1a; }
+::-webkit-scrollbar-thumb { background: rgba(170, 0, 255, 0.4); border-radius: 3px; }
+
+/* Cache Presentation et Code dans la sidebar */
+/* ----------------------------------------------------------------------------
+   Sidebar : ne garder que la section Implementation
+   ----------------------------------------------------------------------------
+   Pendant de la regle equivalente dans Extra_Documentation.css, qui elle ne
+   garde que Theory. Presentation, Theory et Results restent atteignables par
+   le menu deroulant des onglets (nav_dropdown.js).
+
+   Le :not([href*="Projet_"]) epargne les liens vers les AUTRES projets : ils
+   traversent un dossier "Projet_...", alors que les liens internes au projet
+   courant sont relatifs et ne le contiennent jamais. Sans lui, le tiroir de
+   navigation mobile perdrait le passage d'un projet a l'autre.
+   -------------------------------------------------------------------------- */
+.md-nav__item:has(> .md-nav__link[href*="index_Presentation"]:not([href*="Projet_"])),
+.md-nav__item:has(> .md-nav__link[href*="index_Results"]:not([href*="Projet_"])),
+.md-nav__item:has(> .md-nav__link[href*="/Theory/"]:not([href*="Projet_"])) {
+  display: none !important;
+}
+
+.md-footer { display: none; }
+
+/* ============================================================================
+   ADMONITION CUSTOM — PYTHON
+   ----------------------------------------------------------------------------
+   Meme traitement visuel que la variante Scilab (le site doit se lire comme
+   un seul systeme), seuls changent l'icone et les couleurs de coloration
+   syntaxique, adaptees aux mots-cles Python.
+   ========================================================================== */
+
+.md-typeset .admonition.python,
+.md-typeset details.python {
+  background: rgba(0, 210, 255, 0.04) !important;
+  border: 1px solid rgba(0, 210, 255, 0.15) !important;
+  border-top: 2px solid #00d2ff !important;
+  box-shadow: 0 -2px 14px rgba(0, 210, 255, 0.22) !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  margin: 1.5rem 0 !important;
+}
+
+.md-typeset .python > .admonition-title,
+.md-typeset .python > summary {
+  background: rgba(0, 210, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 210, 255, 0.15) !important;
+  color: #00d2ff !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.85rem !important;
+}
+
+.md-typeset .python > .admonition-title::before,
+.md-typeset .python > summary::before {
+  background-color: #00d2ff !important;
+  -webkit-mask-image: var(--md-admonition-icon--python);
+          mask-image: var(--md-admonition-icon--python);
+}
+
+.md-typeset .python pre {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1rem 1.5rem !important;
+}
+
+.md-typeset .python.no-title > .admonition-title { display: none !important; }
+
+/* Coloration syntaxique Python, scopee a l'admonition */
+.md-typeset .python .highlight .c,
+.md-typeset .python .highlight .c1 { color: #7755aa !important; font-style: italic; }  /* commentaires */
+.md-typeset .python .highlight .k,
+.md-typeset .python .highlight .kn,
+.md-typeset .python .highlight .kc { color: var(--impl-pink) !important; font-weight: 600; }  /* mots-cles */
+.md-typeset .python .highlight .mi,
+.md-typeset .python .highlight .mf { color: var(--impl-yellow) !important; }           /* nombres */
+.md-typeset .python .highlight .s1,
+.md-typeset .python .highlight .s2,
+.md-typeset .python .highlight .sd { color: #9ae6b4 !important; }                      /* chaines */
+.md-typeset .python .highlight .nf,
+.md-typeset .python .highlight .nb { color: #00e5cc !important; }                      /* fonctions */
+.md-typeset .python .highlight .nd { color: var(--impl-yellow) !important; }           /* decorateurs */
+.md-typeset .python .highlight .o,
+.md-typeset .python .highlight .ow { color: #cc88ff !important; }                      /* operateurs */
+.md-typeset .python .highlight .n  { color: #e0d0ff !important; }                      /* variables */

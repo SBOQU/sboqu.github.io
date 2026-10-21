@@ -1,0 +1,88 @@
+<svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Axes -->
+  <line x1="4" y1="52" x2="57" y2="52" stroke="#ff00cc" stroke-width="0.5" opacity="0.2"/>
+  <line x1="4" y1="8"  x2="4"  y2="52" stroke="#ff00cc" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- y label — real signal, fixed left, at y=32 -->
+  <text x="1" y="35" font-size="7" fill="#ff00cc"
+        font-family="monospace" font-weight="bold" opacity="0.9">y</text>
+
+  <!-- ŷ label — estimated, fixed left, starts at y=18, converges to y=32 -->
+  <text font-size="7" fill="#ff00cc" font-family="monospace"
+        font-weight="bold" opacity="0.5" x="1">ŷ
+    <animate attributeName="y"
+      values="21;21;35;35;21"
+      keyTimes="0;0.25;0.55;0.85;1"
+      dur="5s" repeatCount="indefinite" calcMode="spline"
+      keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </text>
+
+  <!-- Real signal — solid pink -->
+  <path d="M8,32 C14,20 20,44 26,32 C32,20 38,44 44,32 C50,20 56,44 60,32"
+        fill="none" stroke="#ff00cc" stroke-width="1.6" opacity="0.9"/>
+
+  <!-- Estimated signal — dashed, converges to real -->
+  <path fill="none" stroke="#ff00cc" stroke-width="1.2"
+        stroke-dasharray="3 2" opacity="0.65">
+    <animate attributeName="d"
+      values="
+        M8,18 C14,6 20,30 26,18 C32,6 38,30 44,18 C50,6 56,30 60,18;
+        M8,18 C14,6 20,30 26,18 C32,6 38,30 44,18 C50,6 56,30 60,18;
+        M8,32 C14,20 20,44 26,32 C32,20 38,44 44,32 C50,20 56,44 60,32;
+        M8,32 C14,20 20,44 26,32 C32,20 38,44 44,32 C50,20 56,44 60,32;
+        M8,18 C14,6 20,30 26,18 C32,6 38,30 44,18 C50,6 56,30 60,18"
+      keyTimes="0;0.25;0.55;0.85;1"
+      dur="5s" repeatCount="indefinite" calcMode="spline"
+      keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </path>
+
+  <!-- ε vertical bracket at x=10 -->
+  <line x1="6.5" y1="19" x2="9.5" y2="19" stroke="#ffe566" stroke-width="1" opacity="0">
+    <animate attributeName="opacity"
+      values="0;0.9;0.9;0;0" keyTimes="0;0.05;0.4;0.55;1"
+      dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y1" values="19;19;32;32;19"
+      keyTimes="0;0.05;0.55;0.85;1" dur="5s" repeatCount="indefinite"
+      calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="y2" values="19;19;32;32;19"
+      keyTimes="0;0.05;0.55;0.85;1" dur="5s" repeatCount="indefinite"
+      calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </line>
+  <line x1="6.5" y1="32" x2="9.5" y2="32" stroke="#ffe566" stroke-width="1" opacity="0">
+    <animate attributeName="opacity"
+      values="0;0.9;0.9;0;0" keyTimes="0;0.05;0.4;0.55;1"
+      dur="5s" repeatCount="indefinite"/>
+  </line>
+  <line x1="8" y1="19" x2="8" y2="32" stroke="#ffe566" stroke-width="1" opacity="0">
+    <animate attributeName="opacity"
+      values="0;0.9;0.9;0;0" keyTimes="0;0.05;0.4;0.55;1"
+      dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y1" values="19;19;32;32;19"
+      keyTimes="0;0.05;0.55;0.85;1" dur="5s" repeatCount="indefinite"
+      calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </line>
+
+  <!-- ε label -->
+  <text x="11" y="27" font-size="9" fill="#ffe566"
+        font-family="monospace" font-weight="bold" opacity="0">ε
+    <animate attributeName="opacity"
+      values="0;0.95;0.95;0;0" keyTimes="0;0.05;0.4;0.55;1"
+      dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="y"
+      values="27;27;34;34;27" keyTimes="0;0.05;0.55;0.85;1"
+      dur="5s" repeatCount="indefinite" calcMode="spline"
+      keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </text>
+
+  <!-- Flash when curves meet -->
+  <circle cx="34" cy="32" r="1" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity"
+      values="0;0;0.8;0;0" keyTimes="0;0.54;0.6;0.7;1"
+      dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="r"
+      values="1;1;5;1;1" keyTimes="0;0.54;0.6;0.7;1"
+      dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+</svg>

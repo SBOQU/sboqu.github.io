@@ -1,0 +1,27 @@
+<svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rounded square -->
+  <rect x="1" y="1" width="40" height="40" rx="7" ry="7"
+        fill="rgba(13,10,26,0.95)"
+        stroke="rgba(170,0,255,0.5)"
+        stroke-width="1"/>
+
+  <!-- Glow effect -->
+  <defs>
+    <filter id="text-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- SB monogram -->
+  <text x="21" y="28"
+        font-family="Pacifico, cursive"
+        font-size="20"
+        fill="#ffe566"
+        text-anchor="middle"
+        filter="url(#text-glow)"
+        letter-spacing="-1">SB</text>
+</svg>

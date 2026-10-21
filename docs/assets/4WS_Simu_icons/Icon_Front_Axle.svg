@@ -1,0 +1,67 @@
+<svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Reference trajectory — dashed horizontal at y=38 -->
+  <line x1="2" y1="38" x2="58" y2="38"
+        stroke="#ff00cc" stroke-width="1.2"
+        stroke-dasharray="3 2.5" opacity="0.45"/>
+
+  <!-- Correction segment — x1=x2=cx, y1=cy, y2=38 (anchored on trajectory) -->
+  <line y2="38" stroke="#ff00cc" stroke-width="1.6" opacity="0.85" stroke-linecap="round">
+    <animate attributeName="x1" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="4;7.25;10.5;13.75;17;20.25;23.5;26.75;30;33.25;36.5;39.75;43;46.25;49.5;52.75;56"/>
+    <animate attributeName="x2" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="4;7.25;10.5;13.75;17;20.25;23.5;26.75;30;33.25;36.5;39.75;43;46.25;49.5;52.75;56"/>
+    <animate attributeName="y1" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="38;33.03;28.81;25.99;25;25.99;28.81;33.03;38;42.97;47.19;50.01;51;50.01;47.19;42.97;38"/>
+  </line>
+
+  <!-- δF label — yellow, follows midpoint of segment -->
+  <text font-size="8" fill="#ffe566" font-family="monospace" font-weight="bold">δ
+    <animate attributeName="x" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="7;10.25;13.5;16.75;20;23.25;26.5;29.75;33;36.25;39.5;42.75;46;49.25;52.5;55.75;59"/>
+    <animate attributeName="y" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="38;35.51;33.4;31.99;31.5;31.99;33.4;35.51;38;40.49;42.6;44.01;44.5;44.01;42.6;40.49;38"/>
+    <animate attributeName="opacity" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="0;0.95;0.95;0.95;0.95;0.95;0.95;0.95;0;0.95;0.95;0.95;0.95;0.95;0.95;0.95;0"/>
+  </text>
+
+  <!-- F subscript -->
+  <text font-size="5.5" fill="#ffe566" font-family="monospace" font-weight="bold">F
+    <animate attributeName="x" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="12.5;15.75;19;22.25;25.5;28.75;32;35.25;38.5;41.75;45;48.25;51.5;54.75;58;61.25;64.5"/>
+    <animate attributeName="y" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="42;39.51;37.4;35.99;35.5;35.99;37.4;39.51;42;44.49;46.6;48.01;48.5;48.01;46.6;44.49;42"/>
+    <animate attributeName="opacity" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="0;0.95;0.95;0.95;0.95;0.95;0.95;0.95;0;0.95;0.95;0.95;0.95;0.95;0.95;0.95;0"/>
+  </text>
+
+  <!-- Glow around point -->
+  <circle r="7" fill="#ff00cc" opacity="0.06">
+    <animate attributeName="cx" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="4;7.25;10.5;13.75;17;20.25;23.5;26.75;30;33.25;36.5;39.75;43;46.25;49.5;52.75;56"/>
+    <animate attributeName="cy" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="38;33.03;28.81;25.99;25;25.99;28.81;33.03;38;42.97;47.19;50.01;51;50.01;47.19;42.97;38"/>
+  </circle>
+
+  <!-- Vehicle point -->
+  <circle r="3.5" fill="#ff00cc" opacity="0.95">
+    <animate attributeName="cx" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="4;7.25;10.5;13.75;17;20.25;23.5;26.75;30;33.25;36.5;39.75;43;46.25;49.5;52.75;56"/>
+    <animate attributeName="cy" calcMode="linear" dur="5s" repeatCount="indefinite"
+      keyTimes="0;0.0625;0.125;0.1875;0.25;0.3125;0.375;0.4375;0.5;0.5625;0.625;0.6875;0.75;0.8125;0.875;0.9375;1"
+      values="38;33.03;28.81;25.99;25;25.99;28.81;33.03;38;42.97;47.19;50.01;51;50.01;47.19;42.97;38"/>
+  </circle>
+
+</svg>

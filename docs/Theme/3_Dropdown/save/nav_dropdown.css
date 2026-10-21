@@ -1,0 +1,114 @@
+/* ============================================================
+   Dropdown — Option C, Pacifico + yellow
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.nav-dropdown {
+  position: fixed;
+  transform: translateX(-50%);
+  background: rgba(13, 10, 26, 0.97);
+  border: 0.5px solid rgba(170, 0, 255, 0.2);
+  border-radius: 8px;
+  min-width: 200px;
+  z-index: 9999;
+  padding: 8px 0;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.nav-dropdown.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Liens */
+.nav-dropdown__item {
+  display: flex !important;
+  align-items: center;
+  padding: 11px 18px 11px 22px;
+  color: rgba(200, 170, 255, 0.6) !important;
+  text-decoration: none !important;
+  font-family: 'Pacifico', cursive !important;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  position: relative;
+  transition: color 0.18s ease, padding-left 0.18s ease, background 0.18s ease;
+}
+
+/* Ligne gauche violet→jaune au hover */
+.nav-dropdown__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(to bottom, #aa00ff, #aa00ff);
+  transition: width 0.18s ease;
+}
+
+.nav-dropdown__item:hover {
+  color: #ffe566 !important;
+  text-shadow:
+    0 0 6px  #ffe566,
+    0 0 20px #ffe566,
+    0 0 40px rgba(255, 229, 102, 0.6);
+}
+
+.nav-dropdown__item:hover::before {
+  width: 2px;
+}
+
+/* Séparateur */
+.nav-dropdown__divider {
+  height: 0.5px;
+  background: rgba(170, 0, 255, 0.12);
+  margin: 3px 14px;
+}
+
+/* ============================================================
+   Header & Tabs — style global (toutes pages)
+   ============================================================ */
+
+.md-header {
+  background-color: rgba(15, 10, 30, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+}
+
+.md-tabs {
+  background-color: rgba(15, 10, 30, 0.7) !important;
+  border-bottom: 1.5px solid rgba(170, 0, 255, 0.35) !important;
+  box-shadow: 0 2px 12px 0 rgba(170, 0, 255, 0.12) !important;
+}
+
+/* ============================================================
+   Scrollbar — global
+   ============================================================ */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0a1a; }
+::-webkit-scrollbar-thumb { background: rgba(170, 0, 255, 0.4); border-radius: 3px; }
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Force le titre du header à toujours afficher "Sam Bouchaud" */
+.md-header__title .md-header__topic:first-child .md-ellipsis {
+  visibility: hidden;
+  position: relative;
+}
+
+.md-header__title .md-header__topic:first-child .md-ellipsis::before {
+  content: "Sam Bouchaud";
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

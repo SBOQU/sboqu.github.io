@@ -1,0 +1,487 @@
+/* ============================================================================
+   PORTFOLIO — STYLE GLOBAL
+   ============================================================================
+   1. Variables & configuration
+   2. Layout — Header & Tabs
+   3. Navigation — Sidebar
+   4. Typography — Titres
+   5. Liens
+   6. Équations
+   7. Tableaux
+   8. Code inline & blocs natifs
+   9. Admonition custom — Scilab
+   10. Scrollbar
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. VARIABLES & CONFIGURATION
+   ============================================================================ */
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0d0a1a;
+}
+
+:root {
+  --md-admonition-icon--scilab: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 3a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H3v2h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h2v-2H8v-5a2 2 0 0 0-2-2 2 2 0 0 0 2-2V5h2V3zm8 0a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1v2h-1a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2v-2h2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5h-2V3z"/></svg>');
+}
+
+
+/* ============================================================================
+   3. NAVIGATION — SIDEBAR
+   ============================================================================ */
+
+/* Section parente active — jaune */
+.md-nav__item--active > .md-nav__link {
+  color: #ffe566 !important;
+  padding-left: 0.6rem !important;
+}
+
+/* Page courante — jaune appuyé */
+.md-nav__link--active,
+.md-nav__link[aria-current="page"] {
+  color: #ffe566 !important;
+  font-weight: 600 !important;
+  padding-left: 0.6rem !important;
+}
+
+/* Hover sur n'importe quel lien */
+.md-nav__link:hover {
+  color: #ffe566 !important;
+}
+
+/* Titres de sections de la sidebar */
+.md-nav__title {
+  color: rgba(200, 150, 255, 0.5) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+
+
+/* ============================================================================
+   4. TYPOGRAPHY — TITRES
+   ============================================================================ */
+
+/* H1 — Pacifico jaune néon */
+.md-content .md-typeset h1 {
+  font-family: "Pacifico", cursive !important;
+  font-weight: 400 !important;
+  font-size: 2.2rem;
+  color: #ffe566 !important;
+  text-shadow: 0 0 12px rgba(255, 229, 102, 0.8),
+               0 0 30px rgba(255, 204, 0, 0.4),
+               0 0 60px rgba(255, 153, 0, 0.2) !important;
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(to right, #aa00ff, #ff00cc, transparent) 1;
+}
+
+/* H2 — Jaune doux, bordure violette */
+.md-content .md-typeset h2 {
+  color: #ffd166 !important;
+  font-weight: 500;
+  font-size: 1.3rem;
+  padding-left: 0.8rem;
+  margin-top: 2rem;
+  border-left: 2px solid rgba(170, 0, 255, 0.5);
+}
+
+/* H3 — Cyan, bordure cyan */
+.md-content .md-typeset h3 {
+  color: #00e5cc !important;
+  font-weight: 500;
+  font-size: 1.05rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid rgba(0, 229, 204, 0.4);
+}
+
+/* H4 — Violet clair */
+.md-content .md-typeset h4 {
+  color: #cc88ff !important;
+  font-weight: 500;
+}
+
+
+/* ============================================================================
+   5. LIENS
+   ============================================================================ */
+
+.md-content .md-typeset a {
+  color: #00e5cc !important;
+}
+
+.md-content .md-typeset a:hover {
+  color: #ff00cc !important;
+}
+
+
+/* ============================================================================
+   6. ÉQUATIONS
+   ============================================================================ */
+
+/* Blocs $$...$$ — encadré jaune néon */
+.md-content .md-typeset .arithmatex:has(mjx-container[display="true"]) {
+  background: rgba(170, 0, 255, 0.04);
+  border: 1px solid rgba(170, 0, 255, 0.15);
+  border-top: 2px solid rgba(255, 229, 102, 1);
+  box-shadow: 0 -2px 20px rgba(255, 229, 102, 0.5);
+  border-radius: 0 0 10px 10px;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+}
+
+/* Inline $...$ — aucun style */
+.md-content .md-typeset .arithmatex:has(mjx-container:not([display="true"])) {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* ============================================================================
+   7. TABLEAUX
+   ============================================================================ */
+
+.md-content .md-typeset table {
+  border: 0.5px solid rgba(170, 0, 255, 0.2) !important;
+}
+
+.md-content .md-typeset table th {
+  background: rgba(0, 229, 204, 0.07) !important;
+  color: #00e5cc !important;
+  border-bottom: 1px solid rgba(0, 229, 204, 0.25) !important;
+}
+
+.md-content .md-typeset table tr:hover {
+  background: rgba(170, 0, 255, 0.04) !important;
+}
+
+/* Code inline dans les tableaux — plus sobre */
+.md-content .md-typeset table code {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #c0b0e0 !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+
+/* ============================================================================
+   8. CODE INLINE & BLOCS NATIFS
+   ============================================================================ */
+
+/* Code inline — jaune */
+.md-content .md-typeset code {
+  background: rgba(255, 229, 102, 0.07) !important;
+  color: #ffe566 !important;
+  border: 0.5px solid rgba(255, 229, 102, 0.2);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+/* Blocs de code natifs (sans admonition) */
+.md-content .md-typeset pre {
+  background: rgba(10, 5, 25, 0.8) !important;
+  border: 0.5px solid rgba(170, 0, 255, 0.25) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 20px rgba(170, 0, 255, 0.06) !important;
+}
+
+.md-content .md-typeset pre > code {
+  background: transparent !important;
+  border: none !important;
+  color: #e0d0ff !important;
+}
+
+.md-content .md-typeset .highlight {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+
+/* ============================================================================
+   9. ADMONITION CUSTOM — SCILAB
+   ============================================================================ */
+
+/* Container — bleu électrique */
+.md-typeset .admonition.scilab,
+.md-typeset details.scilab {
+  background: rgba(0, 210, 255, 0.04) !important;
+  border: 1px solid rgba(0, 210, 255, 0.15) !important;
+  border-top: 2px solid #00d2ff !important;
+  box-shadow: 0 -2px 14px rgba(0, 210, 255, 0.22) !important;
+  border-radius: 0 0 10px 10px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  margin: 1.5rem 0 !important;
+}
+
+/* Barre de titre */
+.md-typeset .scilab > .admonition-title,
+.md-typeset .scilab > summary {
+  background: rgba(0, 210, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 210, 255, 0.15) !important;
+  color: #00d2ff !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.85rem !important;
+}
+
+/* Icône { } */
+.md-typeset .scilab > .admonition-title::before,
+.md-typeset .scilab > summary::before {
+  background-color: #00d2ff !important;
+  -webkit-mask-image: var(--md-admonition-icon--scilab);
+          mask-image: var(--md-admonition-icon--scilab);
+}
+
+/* Bloc <pre> à l'intérieur — fond transparent */
+.md-typeset .scilab pre {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1rem 1.5rem !important;
+}
+
+/* Variante sans titre (classe `no-title`) */
+.md-typeset .scilab.no-title > .admonition-title {
+  display: none !important;
+}
+
+/* — Highlighting MATLAB scopé à scilab — */
+.md-typeset .scilab .highlight .c,
+.md-typeset .scilab .highlight .c1 { color: #7755aa !important; font-style: italic; }   /* commentaires */
+.md-typeset .scilab .highlight .k  { color: #ff00cc !important; font-weight: 600; }     /* keywords */
+.md-typeset .scilab .highlight .mi,
+.md-typeset .scilab .highlight .mf { color: #ffe566 !important; }                       /* nombres */
+.md-typeset .scilab .highlight .nf,
+.md-typeset .scilab .highlight .nb { color: #00e5cc !important; }                       /* fonctions */
+.md-typeset .scilab .highlight .o  { color: #cc88ff !important; }                       /* opérateurs */
+.md-typeset .scilab .highlight .n  { color: #e0d0ff !important; }                       /* variables */
+
+/* ----------------------------------------------------------------------------
+   Sidebar : ne garder que la section Theory
+   ----------------------------------------------------------------------------
+   Presentation, Implementation et Results restent atteignables par le menu
+   deroulant des onglets (nav_dropdown.js) ; on les masque seulement ici pour
+   que la colonne de gauche ne montre que le sommaire de la partie en cours.
+
+   Le :not([href*="Projet_"]) epargne les liens vers les AUTRES projets : ils
+   traversent un dossier "Projet_...", alors que les liens internes au projet
+   courant sont relatifs et ne le contiennent jamais. Sans lui, le tiroir de
+   navigation mobile perdrait le passage d'un projet a l'autre.
+   -------------------------------------------------------------------------- */
+.md-nav__item:has(> .md-nav__link[href*="index_Presentation"]:not([href*="Projet_"])),
+.md-nav__item:has(> .md-nav__link[href*="index_Results"]:not([href*="Projet_"])),
+.md-nav__item:has(> .md-nav__link[href*="/Implementation/"]:not([href*="Projet_"])) {
+  display: none !important;
+}
+
+.md-footer { display: none; }
+
+/* ============================================================================
+   11. FIGURES AVEC LÉGENDE
+   ----------------------------------------------------------------------------
+   <div class="figure-card" markdown>    : figure à gauche, légende à droite
+   <div class="figure-card figure-card--wide" markdown> : légende sous la figure
+   La légende est du texte HTML (police du site, maths MathJax) plutôt que du
+   texte dans le SVG, dont la police n'est pas chargée dans une balise <img>.
+   ============================================================================ */
+
+.md-typeset .figure-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.6rem;
+  align-items: center;
+  margin: 1.8rem 0;
+  padding: 1.2rem 1.5rem;
+  background: rgba(170, 0, 255, 0.04);
+  border: 1px solid rgba(170, 0, 255, 0.18);
+  border-radius: 12px;
+}
+
+.md-typeset .figure-card--wide {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.6rem;
+}
+
+.md-typeset .figure-card > p {
+  margin: 0;
+}
+
+.md-typeset .figure-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Légende */
+.md-typeset .figure-card__legend {
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: #c9bce6;
+}
+
+.md-typeset .figure-card__legend > :first-child { margin-top: 0; }
+.md-typeset .figure-card__legend > :last-child  { margin-bottom: 0; }
+
+.md-typeset .figure-card__title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #ffe566;
+  margin: 0 0 0.7rem 0;
+}
+
+.md-typeset .figure-card__legend ul {
+  list-style: none;
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+}
+
+.md-typeset .figure-card__legend ul li {
+  margin: 0 0 0.4rem 0;
+  padding-left: 2.2em;
+  text-indent: -2.2em;
+}
+
+/* Légende en colonnes, alignée sous les panneaux d'une figure large */
+.md-typeset .figure-card__legend--columns ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.4rem 1.2rem;
+  text-align: center;
+}
+
+.md-typeset .figure-card__legend--columns ul li {
+  padding-left: 0;
+  text-indent: 0;
+}
+
+.md-typeset .figure-card__note {
+  font-size: 0.66rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* Clés de légende : trait, pointillés, cercle, point, pastille numérotée */
+.md-typeset .legend-key {
+  display: inline-block;
+  width: 1.6em;
+  margin-right: 0.6em;
+  vertical-align: middle;
+  text-indent: 0;
+  border-top: 2px solid currentColor;
+}
+
+.md-typeset .legend-key--dashed { border-top-style: dashed; }
+.md-typeset .legend-key--dotted { border-top-style: dotted; opacity: 0.7; }
+
+.md-typeset .legend-key--circle,
+.md-typeset .legend-key--dot,
+.md-typeset .legend-key--number {
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: 0.25em;
+  margin-right: 0.85em;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.md-typeset .legend-key--dot {
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.45em;
+  margin-right: 1.05em;
+  background: currentColor;
+}
+
+.md-typeset .legend-key--number {
+  width: 1.35em;
+  height: 1.35em;
+  margin-left: 0.1em;
+  margin-right: 0.75em;
+  border-width: 1.5px;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1.15em;
+  text-align: center;
+}
+
+.md-typeset .is-cyan   { color: #00e5cc; }
+.md-typeset .is-pink   { color: #ff00cc; }
+.md-typeset .is-yellow { color: #ffe566; }
+.md-typeset .is-purple { color: #aa00ff; }
+.md-typeset .is-grey   { color: #b9a8dc; }
+.md-typeset .is-azure  { color: #00aaff; }
+
+@media (max-width: 760px) {
+  .md-typeset .figure-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============================================================================
+   12. TABLEAU DE PROCÉDURE (démarche à gauche, exemple chiffré à droite)
+   ============================================================================ */
+
+.md-typeset table.procedure {
+  display: table;
+  width: 100%;
+  margin: 1.8rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.72rem;
+  background: rgba(170, 0, 255, 0.04);
+  border: 1px solid rgba(170, 0, 255, 0.18);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.md-typeset table.procedure th {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-family: "Sora", sans-serif;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(255, 229, 102, 0.25);
+}
+
+.md-typeset table.procedure td {
+  padding: 0.65rem 1rem;
+  vertical-align: top;
+  color: #c9bce6;
+  border-bottom: 1px solid rgba(170, 0, 255, 0.12);
+}
+
+.md-typeset table.procedure tr:last-child td { border-bottom: none; }
+.md-typeset table.procedure td strong { color: #e8ddff; }
+
+.md-typeset table.procedure td.phase {
+  width: 8.5rem;
+  white-space: nowrap;
+  font-family: "Sora", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-left: 3px solid currentColor;
+}
+
+.md-typeset table.procedure td.phase--data   { color: #00e5cc; }
+.md-typeset table.procedure td.phase--need   { color: #cc66ff; }
+.md-typeset table.procedure td.phase--calc   { color: #ff00cc; }
+.md-typeset table.procedure td.phase--result { color: #ffe566; }
+
+.md-typeset table.procedure .procedure__result {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid #ffe566;
+  border-radius: 6px;
+  color: #ffe566;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .md-typeset table.procedure td.phase { width: auto; white-space: normal; }
+}

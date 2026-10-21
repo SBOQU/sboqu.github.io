@@ -1,0 +1,36 @@
+<svg viewBox="0 0 80 80" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+
+  <line x1="10" y1="42" x2="70" y2="42" stroke="#aa00ff" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+
+  <path d="M16,50 L36,50 L36,56 L56,56 L56,50 L74,50 L74,34 L56,34 L56,28 L36,28 L36,34 L16,34 Z"
+        fill="none" stroke="#aa00ff" stroke-width="1.2" opacity="0.6"/>
+
+  <path d="M16,66 Q45,76 74,66" fill="none" stroke="#ff00cc" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+  <circle r="2.5" fill="#ff00cc" opacity="0.9">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M16,66 Q45,76 74,66" calcMode="spline" keySplines="0.4 0 0.6 1" keyTimes="0;1"/>
+  </circle>
+
+  <path d="M62,31 C72,31 74,42 74,42 C74,42 72,53 62,53" fill="none" stroke="#ffe566" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.8">
+    <animate attributeName="stroke-dashoffset" from="12" to="0" dur="1.5s" repeatCount="indefinite" calcMode="linear"/>
+  </path>
+  <polygon points="62,29 65,31 62,33" fill="#ffe566" opacity="0.9"/>
+
+  <circle cx="36" cy="28" r="1.5" fill="#ff00cc"/>
+  <circle cx="36" cy="28" r="6" fill="#ff00cc" opacity="0">
+    <animate attributeName="opacity" values="0;0.5;0" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="1.5;7;9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <path d="M36,28 L28,14 L12,14" fill="none" stroke="#aa00ff" stroke-width="0.8" opacity="0.6"/>
+
+  <g transform="translate(18, 12)">
+    <line x1="-10" y1="0" x2="10" y2="0" stroke="#aa00ff" stroke-width="0.5" opacity="0.4"/>
+    <line x1="0" y1="-10" x2="0" y2="10" stroke="#aa00ff" stroke-width="0.5" opacity="0.4"/>
+    <ellipse cx="0" cy="0" rx="9" ry="4.5" transform="rotate(-45)" fill="none" stroke="#ff00cc" stroke-width="1" opacity="0.8"/>
+    <circle r="1.5" fill="#ffe566">
+      <animate attributeName="cx" values="0; 4; -3; 0" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"/>
+      <animate attributeName="cy" values="0; 1; -4; 0" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1"/>
+    </circle>
+  </g>
+
+</svg>

@@ -1,0 +1,32 @@
+<svg viewBox="0 0 60 60" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Reference path (dashed, scrolling) -->
+  <path d="M4,34 Q18,10 30,24 Q42,38 56,18"
+        fill="none" stroke="#ff00cc" stroke-width="1"
+        stroke-dasharray="3 3" opacity="0.35">
+    <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.4s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Vehicle actual path (solid) -->
+  <path d="M4,42 Q16,18 30,28 Q44,36 56,22"
+        fill="none" stroke="#ff00cc" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Lateral error line (y) -->
+  <line x1="30" y1="24" x2="30" y2="28"
+        stroke="#ffe566" stroke-width="1.2" opacity="0.75"/>
+  <text x="32" y="22" font-size="8" fill="#ffe566"
+        font-family="monospace" opacity="0.65">y</text>
+
+  <!-- Ghost glow -->
+  <circle r="9" fill="#ff00cc" opacity="0.05">
+    <animateMotion dur="3s" repeatCount="indefinite"
+      path="M4,42 Q16,18 30,28 Q44,36 56,22"/>
+  </circle>
+
+  <!-- Moving dot -->
+  <circle r="4" fill="#ff00cc" opacity="0.9">
+    <animateMotion dur="3s" repeatCount="indefinite"
+      path="M4,42 Q16,18 30,28 Q44,36 56,22"/>
+  </circle>
+
+</svg>
