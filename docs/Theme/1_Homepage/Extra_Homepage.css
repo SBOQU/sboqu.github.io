@@ -113,7 +113,8 @@ html {
 /* Nom de famille en dégradé néon */
 .hero-title .hero-title-last {
   display: inline-block;
-  padding-bottom: 0.12em;
+  padding: 0 0.15em 0.12em 0;
+  margin-right: -0.15em;
   background: linear-gradient(90deg, #aa00ff, #ff00cc, #00e5cc);
   -webkit-background-clip: text;
   background-clip: text;
