@@ -108,8 +108,8 @@
 /* H1 — Pacifico en dégradé néon, avec la section en petit au-dessus */
 .md-content .md-typeset h1 {
   display: inline-block;
-  margin: 0 0 22px;
-  padding-bottom: 0.1em;
+  margin: 0 0 12px;
+  padding: 0 0.15em 0.3em 0;
   font-family: "Pacifico", cursive;
   font-size: clamp(34px, 4.5vw, 48px);
   font-weight: 400;
