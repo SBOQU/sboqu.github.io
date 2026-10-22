@@ -1,27 +1,7 @@
-<svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background rounded square -->
-  <rect x="1" y="1" width="40" height="40" rx="7" ry="7"
-        fill="rgba(13,10,26,0.95)"
-        stroke="rgba(170,0,255,0.5)"
-        stroke-width="1"/>
-
-  <!-- Glow effect -->
-  <defs>
-    <filter id="text-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="1.2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
-
-  <!-- SB monogram -->
-  <text x="21" y="28"
-        font-family="Pacifico, cursive"
-        font-size="20"
-        fill="#ffe566"
-        text-anchor="middle"
-        filter="url(#text-glow)"
-        letter-spacing="-1">SB</text>
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#aa00ff"/><stop offset="0.55" stop-color="#ff00cc"/><stop offset="1" stop-color="#00e5cc"/>
+  </linearGradient></defs>
+  <polygon points="24.00,3.00 42.19,13.50 42.19,34.50 24.00,45.00 5.81,34.50 5.81,13.50" fill="#0f0a1d" stroke="url(#neon)" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M29.5 17.4C28.2 15.6 26.2 14.8 24 14.8C20.7 14.8 18.4 16.8 18.4 19.5C18.4 22.2 20.6 23.3 24 24.4C27.4 25.5 29.8 26.8 29.8 29.6C29.8 32.4 27.4 34.4 24 34.4C21.5 34.4 19.4 33.4 18.2 31.4" fill="none" stroke="url(#neon)" stroke-width="3.4" stroke-linecap="round"/>
 </svg>
