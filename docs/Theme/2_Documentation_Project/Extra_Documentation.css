@@ -1,21 +1,15 @@
 /* ============================================================================
-   PORTFOLIO — STYLE GLOBAL
+   PAGES THEORY — STYLE MODERNE (variante Néon)
    ============================================================================
-   1. Variables & configuration
-   2. Layout — Header & Tabs
-   3. Navigation — Sidebar
-   4. Typography — Titres
-   5. Liens
-   6. Équations
-   7. Tableaux
-   8. Code inline & blocs natifs
-   9. Admonition custom — Scilab
-   10. Scrollbar
+   Même système visuel que la homepage et les pages de présentation :
+   titres Sora, cartes sombres arrondies, accents violet / magenta / cyan.
+   Aucune classe n'a changé : les fichiers .md n'ont pas à être modifiés.
    ============================================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600&display=swap');
 
 /* ============================================================================
-   1. VARIABLES & CONFIGURATION
+   1. VARIABLES & FOND
    ============================================================================ */
 
 [data-md-color-scheme="slate"] {
@@ -23,113 +17,211 @@
 }
 
 :root {
+  --doc-violet:   #aa00ff;
+  --doc-magenta:  #ff00cc;
+  --doc-cyan:     #7ff3e6;
+  --doc-yellow:   #ffe566;
+  --doc-title:    #f4effc;
+  --doc-text:     #cfc6e4;
+  --doc-muted:    #a79fbf;
+  --doc-card:     #0f0a1d;
+  --doc-code-bg:  #0b0816;
+
+  --md-admonition-icon--python: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.5 6.5 9 11l-4.5 4.5L6 17l6-6-6-6zM12 17h8v1.8h-8z"/></svg>');
   --md-admonition-icon--scilab: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 3a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H3v2h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h2v-2H8v-5a2 2 0 0 0-2-2 2 2 0 0 0 2-2V5h2V3zm8 0a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1v2h-1a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2v-2h2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5h-2V3z"/></svg>');
 }
 
 
 /* ============================================================================
-   3. NAVIGATION — SIDEBAR
+   2. NAVIGATION — SIDEBAR (page active en pastille néon)
    ============================================================================ */
 
-/* Section parente active — jaune */
-.md-nav__item--active > .md-nav__link {
-  color: #ffe566 !important;
-  padding-left: 0.6rem !important;
-}
-
-/* Page courante — jaune appuyé */
-.md-nav__link--active,
-.md-nav__link[aria-current="page"] {
-  color: #ffe566 !important;
-  font-weight: 600 !important;
-  padding-left: 0.6rem !important;
-}
-
-/* Hover sur n'importe quel lien */
-.md-nav__link:hover {
-  color: #ffe566 !important;
-}
-
-/* Titres de sections de la sidebar */
 .md-nav__title {
-  color: rgba(200, 150, 255, 0.5) !important;
-  font-size: 0.7rem !important;
-  letter-spacing: 2px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.md-nav a.md-nav__link {
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: var(--doc-muted);
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.md-nav a.md-nav__link:hover {
+  color: var(--doc-title) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Section parente de la page courante */
+.md-nav__item--active > .md-nav__link {
+  color: var(--doc-title) !important;
+}
+
+/* Page courante */
+.md-nav a.md-nav__link--active,
+.md-nav a.md-nav__link[aria-current="page"] {
+  color: var(--doc-title) !important;
+  font-weight: 500 !important;
+  background: rgba(170, 0, 255, 0.14);
+  box-shadow: 0 0 18px rgba(170, 0, 255, 0.25);
+}
+
+.md-nav a.md-nav__link--active::before,
+.md-nav a.md-nav__link[aria-current="page"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(var(--doc-violet), var(--doc-magenta));
 }
 
 
 /* ============================================================================
-   4. TYPOGRAPHY — TITRES
+   3. TEXTE & TITRES
    ============================================================================ */
 
-/* H1 — Pacifico jaune néon */
+.md-content .md-typeset {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--doc-text);
+}
+
+.md-content .md-typeset strong {
+  color: var(--doc-title);
+  font-weight: 600;
+}
+
+.md-content .md-typeset ul li::marker,
+.md-content .md-typeset ol li::marker {
+  color: var(--doc-magenta);
+}
+
+/* H1 — Pacifico en dégradé néon, avec la section en petit au-dessus */
 .md-content .md-typeset h1 {
-  font-family: "Pacifico", cursive !important;
-  font-weight: 400 !important;
-  font-size: 2.2rem;
-  color: #ffe566 !important;
-  text-shadow: 0 0 12px rgba(255, 229, 102, 0.8),
-               0 0 30px rgba(255, 204, 0, 0.4),
-               0 0 60px rgba(255, 153, 0, 0.2) !important;
-  padding-bottom: 1rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(to right, #aa00ff, #ff00cc, transparent) 1;
+  display: inline-block;
+  margin: 0 0 22px;
+  padding-bottom: 0.1em;
+  font-family: "Pacifico", cursive;
+  font-size: clamp(34px, 4.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--doc-title);
+  background: linear-gradient(90deg, var(--doc-violet), var(--doc-magenta), #00e5cc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(170, 0, 255, 0.4));
 }
 
-/* H2 — Jaune doux, bordure violette */
+.md-content .md-typeset h1::before {
+  display: block;
+  margin-bottom: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  -webkit-text-fill-color: #8f86a8;
+}
+
+/* H2 — Sora blanc, trait lumineux dessous */
 .md-content .md-typeset h2 {
-  color: #ffd166 !important;
-  font-weight: 500;
-  font-size: 1.3rem;
-  padding-left: 0.8rem;
-  margin-top: 2rem;
-  border-left: 2px solid rgba(170, 0, 255, 0.5);
+  position: relative;
+  margin: 2.6rem 0 1rem;
+  padding: 0 0 12px;
+  font-family: "Sora", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--doc-title);
 }
 
-/* H3 — Cyan, bordure cyan */
+.md-content .md-typeset h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--doc-violet), var(--doc-magenta), transparent);
+  box-shadow: 0 0 10px rgba(255, 0, 204, 0.7);
+}
+
+/* H3 — Sora cyan, léger halo */
 .md-content .md-typeset h3 {
-  color: #00e5cc !important;
-  font-weight: 500;
-  font-size: 1.05rem;
-  padding-left: 0.6rem;
-  border-left: 2px solid rgba(0, 229, 204, 0.4);
+  margin: 2rem 0 0.8rem;
+  font-family: "Sora", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--doc-cyan);
+  text-shadow: 0 0 14px rgba(127, 243, 230, 0.45);
 }
 
-/* H4 — Violet clair */
+/* H4 — Sora violet clair */
 .md-content .md-typeset h4 {
-  color: #cc88ff !important;
-  font-weight: 500;
+  font-family: "Sora", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #d9a6ff;
 }
 
 
 /* ============================================================================
-   5. LIENS
+   4. LIENS
    ============================================================================ */
 
 .md-content .md-typeset a {
-  color: #00e5cc !important;
+  color: var(--doc-cyan);
+  text-decoration: underline;
+  text-decoration-color: rgba(127, 243, 230, 0.35);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .md-content .md-typeset a:hover {
-  color: #ff00cc !important;
+  color: #ff66dd;
+  text-decoration-color: #ff66dd;
 }
 
 
 /* ============================================================================
-   6. ÉQUATIONS
+   5. ÉQUATIONS
    ============================================================================ */
 
-/* Blocs $$...$$ — encadré jaune néon */
+/* Blocs $$...$$ — carte sombre, barre dégradée à gauche, halo violet */
 .md-content .md-typeset .arithmatex:has(mjx-container[display="true"]) {
-  background: rgba(170, 0, 255, 0.04);
-  border: 1px solid rgba(170, 0, 255, 0.15);
-  border-top: 2px solid rgba(255, 229, 102, 1);
-  box-shadow: 0 -2px 20px rgba(255, 229, 102, 0.5);
-  border-radius: 0 0 10px 10px;
-  padding: 1.5rem 2rem;
-  margin: 1.5rem 0;
+  position: relative;
+  margin: 1.6rem 0;
+  padding: 20px 26px;
+  overflow-x: auto;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    var(--doc-card);
+  border: 1px solid rgba(170, 0, 255, 0.35);
+  box-shadow: 0 0 28px rgba(170, 0, 255, 0.18), inset 0 0 30px rgba(170, 0, 255, 0.06);
+}
+
+.md-content .md-typeset .arithmatex:has(mjx-container[display="true"])::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(var(--doc-violet), var(--doc-magenta));
 }
 
 /* Inline $...$ — aucun style */
@@ -142,123 +234,259 @@
 
 
 /* ============================================================================
-   7. TABLEAUX
+   6. TABLEAUX (en-tête en dégradé violet → magenta)
    ============================================================================ */
 
-.md-content .md-typeset table {
-  border: 0.5px solid rgba(170, 0, 255, 0.2) !important;
+.md-content .md-typeset table:not([class]) {
+  border: 1px solid rgba(170, 0, 255, 0.35);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--doc-card);
+  box-shadow: 0 0 26px rgba(170, 0, 255, 0.16);
+  font-size: 14.5px;
 }
 
-.md-content .md-typeset table th {
-  background: rgba(0, 229, 204, 0.07) !important;
-  color: #00e5cc !important;
-  border-bottom: 1px solid rgba(0, 229, 204, 0.25) !important;
+.md-content .md-typeset table:not([class]) thead tr {
+  background: linear-gradient(90deg, rgba(170, 0, 255, 0.38), rgba(255, 0, 204, 0.22));
 }
 
-.md-content .md-typeset table tr:hover {
-  background: rgba(170, 0, 255, 0.04) !important;
+.md-content .md-typeset table:not([class]) th {
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--doc-title);
+  background: transparent;
+  border: none;
 }
 
-/* Code inline dans les tableaux — plus sobre */
-.md-content .md-typeset table code {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #c0b0e0 !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+.md-content .md-typeset table:not([class]) td {
+  padding: 11px 16px;
+  color: var(--doc-text);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.md-content .md-typeset table:not([class]) tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.md-content .md-typeset table:not([class]) tbody tr:hover {
+  background: rgba(255, 0, 204, 0.06);
+  box-shadow: none;
+}
+
+.md-content .md-typeset table:not([class]) td strong {
+  color: var(--doc-yellow);
 }
 
 
 /* ============================================================================
-   8. CODE INLINE & BLOCS NATIFS
+   7. CODE INLINE & BLOCS NATIFS
    ============================================================================ */
 
-/* Code inline — jaune */
+/* Code inline — pastille jaune */
 .md-content .md-typeset code {
-  background: rgba(255, 229, 102, 0.07) !important;
-  color: #ffe566 !important;
-  border: 0.5px solid rgba(255, 229, 102, 0.2);
-  border-radius: 4px;
-  padding: 0.1em 0.4em;
+  padding: 0.15em 0.45em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.86em;
+  color: var(--doc-yellow);
+  background: rgba(255, 229, 102, 0.08);
+  border: 1px solid rgba(255, 229, 102, 0.3);
+  border-radius: 6px;
 }
 
-/* Blocs de code natifs (sans admonition) */
+/* Blocs de code natifs (hors admonition) */
 .md-content .md-typeset pre {
-  background: rgba(10, 5, 25, 0.8) !important;
-  border: 0.5px solid rgba(170, 0, 255, 0.25) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 0 20px rgba(170, 0, 255, 0.06) !important;
+  background: var(--doc-code-bg) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 12px !important;
 }
 
 .md-content .md-typeset pre > code {
-  background: transparent !important;
-  border: none !important;
-  color: #e0d0ff !important;
+  padding: 16px 20px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #e6e0f5;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .md-content .md-typeset .highlight {
-  border-radius: 8px !important;
-  overflow: hidden !important;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 
 /* ============================================================================
-   9. ADMONITION CUSTOM — SCILAB
+   8. ENCADRÉS (note, example, warning…) — une carte par type, avec halo
    ============================================================================ */
 
-/* Container — bleu électrique */
-.md-typeset .admonition.scilab,
-.md-typeset details.scilab {
-  background: rgba(0, 210, 255, 0.04) !important;
-  border: 1px solid rgba(0, 210, 255, 0.15) !important;
-  border-top: 2px solid #00d2ff !important;
-  box-shadow: 0 -2px 14px rgba(0, 210, 255, 0.22) !important;
-  border-radius: 0 0 10px 10px !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  margin: 1.5rem 0 !important;
+.md-content .md-typeset .admonition,
+.md-content .md-typeset details {
+  --accent-rgb: 170, 0, 255;
+  margin: 1.8rem 0;
+  padding: 0 18px 4px;
+  font-size: 15px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-rgb), 0.02)),
+    var(--doc-card);
+  box-shadow: 0 0 26px rgba(var(--accent-rgb), 0.2);
 }
 
-/* Barre de titre */
-.md-typeset .scilab > .admonition-title,
-.md-typeset .scilab > summary {
-  background: rgba(0, 210, 255, 0.06) !important;
-  border-bottom: 1px solid rgba(0, 210, 255, 0.15) !important;
-  color: #00d2ff !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.85rem !important;
+.md-content .md-typeset .note, .md-content .md-typeset .abstract, .md-content .md-typeset .info { --accent-rgb: 0, 229, 204; }
+.md-content .md-typeset .tip, .md-content .md-typeset .success                                 { --accent-rgb: 61, 220, 151; }
+.md-content .md-typeset .question                                                               { --accent-rgb: 255, 0, 204; }
+.md-content .md-typeset .warning, .md-content .md-typeset .caution                             { --accent-rgb: 255, 170, 60; }
+.md-content .md-typeset .danger, .md-content .md-typeset .failure, .md-content .md-typeset .bug { --accent-rgb: 255, 90, 120; }
+.md-content .md-typeset .example, .md-content .md-typeset .quote                               { --accent-rgb: 170, 0, 255; }
+
+.md-content .md-typeset .admonition-title,
+.md-content .md-typeset details > summary {
+  margin: 0 -18px 10px;
+  padding: 13px 18px 6px 48px;
+  font-family: "Sora", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--doc-title);
+  background: transparent;
+  border: none;
 }
 
-/* Icône { } */
-.md-typeset .scilab > .admonition-title::before,
-.md-typeset .scilab > summary::before {
-  background-color: #00d2ff !important;
-  -webkit-mask-image: var(--md-admonition-icon--scilab);
-          mask-image: var(--md-admonition-icon--scilab);
+.md-content .md-typeset .admonition-title::before,
+.md-content .md-typeset details > summary::before {
+  left: 18px;
+  top: 15px;
+  width: 19px;
+  height: 19px;
+  background-color: rgb(var(--accent-rgb));
 }
 
-/* Bloc <pre> à l'intérieur — fond transparent */
-.md-typeset .scilab pre {
+
+/* ============================================================================
+   9. BLOCS DE CODE PYTHON & SCILAB — style éditeur
+   ============================================================================ */
+
+.md-content .md-typeset .admonition.python,
+.md-content .md-typeset .admonition.scilab,
+.md-content .md-typeset details.python,
+.md-content .md-typeset details.scilab {
+  --accent-rgb: 0, 229, 204;
+  padding: 0;
+  overflow: hidden;
+  background: var(--doc-code-bg);
+  border: 1px solid rgba(0, 229, 204, 0.35);
+  box-shadow: 0 0 26px rgba(0, 229, 204, 0.15);
+}
+
+/* Barre de titre : 3 points, nom du bloc, badge du langage */
+.md-content .md-typeset .python > .admonition-title,
+.md-content .md-typeset .scilab > .admonition-title,
+.md-content .md-typeset .python > summary,
+.md-content .md-typeset .scilab > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 14px 10px 66px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--doc-text);
+  background: rgba(255, 255, 255, 0.035);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.md-content .md-typeset .python > .admonition-title::before,
+.md-content .md-typeset .scilab > .admonition-title::before,
+.md-content .md-typeset .python > summary::before,
+.md-content .md-typeset .scilab > summary::before {
+  left: 14px;
+  top: 50%;
+  width: 38px;
+  height: 10px;
+  transform: translateY(-50%);
+  -webkit-mask-image: none;
+          mask-image: none;
+  background:
+    radial-gradient(circle, #ff5f8a 4.5px, transparent 5px) 0 50% / 10px 10px no-repeat,
+    radial-gradient(circle, #ffd166 4.5px, transparent 5px) 14px 50% / 10px 10px no-repeat,
+    radial-gradient(circle, #3ddc97 4.5px, transparent 5px) 28px 50% / 10px 10px no-repeat;
+}
+
+.md-content .md-typeset .python > .admonition-title::after,
+.md-content .md-typeset .scilab > .admonition-title::after {
+  order: 1;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--doc-cyan);
+  border: 1px solid rgba(0, 229, 204, 0.35);
+}
+.md-content .md-typeset .python > .admonition-title::after { content: 'PYTHON'; }
+.md-content .md-typeset .scilab > .admonition-title::after { content: 'SCILAB'; }
+
+.md-content .md-typeset .python .highlight,
+.md-content .md-typeset .scilab .highlight {
+  margin: 0;
+  border-radius: 0;
+}
+
+.md-content .md-typeset .python pre,
+.md-content .md-typeset .scilab pre {
+  margin: 0 !important;
   background: transparent !important;
   border: none !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
-  margin: 0 !important;
-  padding: 1rem 1.5rem !important;
 }
 
-/* Variante sans titre (classe `no-title`) */
-.md-typeset .scilab.no-title > .admonition-title {
-  display: none !important;
+.md-content .md-typeset .python.no-title > .admonition-title,
+.md-content .md-typeset .scilab.no-title > .admonition-title {
+  display: none;
 }
 
-/* — Highlighting MATLAB scopé à scilab — */
-.md-typeset .scilab .highlight .c,
-.md-typeset .scilab .highlight .c1 { color: #7755aa !important; font-style: italic; }   /* commentaires */
-.md-typeset .scilab .highlight .k  { color: #ff00cc !important; font-weight: 600; }     /* keywords */
-.md-typeset .scilab .highlight .mi,
-.md-typeset .scilab .highlight .mf { color: #ffe566 !important; }                       /* nombres */
-.md-typeset .scilab .highlight .nf,
-.md-typeset .scilab .highlight .nb { color: #00e5cc !important; }                       /* fonctions */
-.md-typeset .scilab .highlight .o  { color: #cc88ff !important; }                       /* opérateurs */
-.md-typeset .scilab .highlight .n  { color: #e0d0ff !important; }                       /* variables */
+/* Coloration syntaxique (Python et Scilab) */
+.md-typeset .python .highlight .c,  .md-typeset .scilab .highlight .c,
+.md-typeset .python .highlight .c1, .md-typeset .scilab .highlight .c1,
+.md-typeset .python .highlight .cm, .md-typeset .scilab .highlight .cm { color: #8a7fa8; font-style: italic; }   /* commentaires */
+.md-typeset .python .highlight .k,  .md-typeset .scilab .highlight .k,
+.md-typeset .python .highlight .kn, .md-typeset .python .highlight .kc { color: #ff6ad5; font-weight: 600; }      /* mots-clés */
+.md-typeset .python .highlight .mi, .md-typeset .scilab .highlight .mi,
+.md-typeset .python .highlight .mf, .md-typeset .scilab .highlight .mf { color: #ffd166; }                        /* nombres */
+.md-typeset .python .highlight .s1, .md-typeset .python .highlight .s2,
+.md-typeset .python .highlight .sd, .md-typeset .scilab .highlight .s  { color: #b8f28b; }                        /* chaînes */
+.md-typeset .python .highlight .nf, .md-typeset .scilab .highlight .nf,
+.md-typeset .python .highlight .nb, .md-typeset .scilab .highlight .nb { color: var(--doc-cyan); }                /* fonctions */
+.md-typeset .python .highlight .nd                                     { color: #ffd166; }                        /* décorateurs */
+.md-typeset .python .highlight .o,  .md-typeset .scilab .highlight .o,
+.md-typeset .python .highlight .ow                                     { color: #cc88ff; }                        /* opérateurs */
+.md-typeset .python .highlight .n,  .md-typeset .scilab .highlight .n  { color: #e6e0f5; }                        /* variables */
+
+
+/* ============================================================================
+   10. SCROLLBAR
+   ============================================================================ */
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0a1a; }
+::-webkit-scrollbar-thumb { background: rgba(170, 0, 255, 0.4); border-radius: 3px; }
+
+.md-footer { display: none; }
+
+
+/* Section affichée au-dessus du titre */
+.md-content .md-typeset h1::before { content: '// Theory'; }
+
 
 /* ----------------------------------------------------------------------------
    Sidebar : ne garder que la section Theory
@@ -278,8 +506,6 @@
   display: none !important;
 }
 
-.md-footer { display: none; }
-
 /* ============================================================================
    11. FIGURES AVEC LÉGENDE
    ----------------------------------------------------------------------------
@@ -296,9 +522,12 @@
   align-items: center;
   margin: 1.8rem 0;
   padding: 1.2rem 1.5rem;
-  background: rgba(170, 0, 255, 0.04);
-  border: 1px solid rgba(170, 0, 255, 0.18);
-  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    var(--doc-card);
+  border: 1px solid rgba(170, 0, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 26px rgba(170, 0, 255, 0.12);
 }
 
 .md-typeset .figure-card--wide {
@@ -318,9 +547,9 @@
 
 /* Légende */
 .md-typeset .figure-card__legend {
-  font-size: 0.72rem;
+  font-size: 14px;
   line-height: 1.6;
-  color: #c9bce6;
+  color: var(--doc-muted);
 }
 
 .md-typeset .figure-card__legend > :first-child { margin-top: 0; }
@@ -328,9 +557,9 @@
 
 .md-typeset .figure-card__title {
   font-family: "Sora", sans-serif;
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: #ffe566;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--doc-title);
   margin: 0 0 0.7rem 0;
 }
 
@@ -362,6 +591,9 @@
 .md-typeset .figure-card__note {
   font-size: 0.66rem;
   opacity: 0.7;
+}
+
+.md-typeset .figure-card__legend--columns .figure-card__note {
   text-align: center;
 }
 
@@ -409,6 +641,19 @@
   text-align: center;
 }
 
+/* Symbole (flèche de rotation...) utilisé comme clé */
+.md-typeset .legend-symbol {
+  display: inline-block;
+  width: 1.4em;
+  margin-right: 0.5em;
+  text-align: center;
+  text-indent: 0;
+  font-size: 1.15em;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+}
+
 .md-typeset .is-cyan   { color: #00e5cc; }
 .md-typeset .is-pink   { color: #ff00cc; }
 .md-typeset .is-yellow { color: #ffe566; }
@@ -422,8 +667,12 @@
   }
 }
 
+
 /* ============================================================================
    12. TABLEAU DE PROCÉDURE (démarche à gauche, exemple chiffré à droite)
+   ----------------------------------------------------------------------------
+   <table class="procedure"> : une ligne par étape, la première colonne porte
+   la phase (Data, Need, Calculation, Result) avec une barre verticale colorée.
    ============================================================================ */
 
 .md-typeset table.procedure {
@@ -432,54 +681,65 @@
   margin: 1.8rem 0;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.72rem;
-  background: rgba(170, 0, 255, 0.04);
-  border: 1px solid rgba(170, 0, 255, 0.18);
-  border-radius: 12px;
+  font-size: 14px;
+  background: var(--doc-card);
+  border: 1px solid rgba(170, 0, 255, 0.35);
+  border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 0 26px rgba(170, 0, 255, 0.16);
+}
+
+.md-typeset table.procedure thead tr {
+  background: linear-gradient(90deg, rgba(170, 0, 255, 0.38), rgba(255, 0, 204, 0.22));
 }
 
 .md-typeset table.procedure th {
-  padding: 0.7rem 1rem;
+  padding: 12px 16px;
   text-align: left;
-  font-family: "Sora", sans-serif;
-  font-size: 0.75rem;
-  border-bottom: 1px solid rgba(255, 229, 102, 0.25);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--doc-title);
+  background: transparent;
+  border: none;
 }
 
 .md-typeset table.procedure td {
-  padding: 0.65rem 1rem;
+  padding: 11px 16px;
   vertical-align: top;
-  color: #c9bce6;
-  border-bottom: 1px solid rgba(170, 0, 255, 0.12);
+  color: var(--doc-text);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.md-typeset table.procedure tr:last-child td { border-bottom: none; }
-.md-typeset table.procedure td strong { color: #e8ddff; }
+.md-typeset table.procedure td strong { color: var(--doc-title); }
 
+/* Colonne des phases */
 .md-typeset table.procedure td.phase {
   width: 8.5rem;
   white-space: nowrap;
-  font-family: "Sora", sans-serif;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border-left: 3px solid currentColor;
 }
 
-.md-typeset table.procedure td.phase--data   { color: #00e5cc; }
-.md-typeset table.procedure td.phase--need   { color: #cc66ff; }
-.md-typeset table.procedure td.phase--calc   { color: #ff00cc; }
-.md-typeset table.procedure td.phase--result { color: #ffe566; }
+.md-typeset table.procedure td.phase--data   { color: #7ff3e6; }
+.md-typeset table.procedure td.phase--need   { color: #d9a6ff; }
+.md-typeset table.procedure td.phase--calc   { color: #ff8ae0; }
+.md-typeset table.procedure td.phase--result { color: #ffd166; }
 
+/* Résultat final mis en avant */
 .md-typeset table.procedure .procedure__result {
   display: inline-block;
-  padding: 0.15rem 0.6rem;
-  border: 1px solid #ffe566;
-  border-radius: 6px;
-  color: #ffe566;
-  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #0d0a1a;
+  background: linear-gradient(90deg, #ffe566, #ffc670);
 }
 
 @media (max-width: 760px) {
